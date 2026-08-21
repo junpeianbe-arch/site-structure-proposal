@@ -6,723 +6,866 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ジュエリー小売S社　サイト構成案</title>
 <style>
-/* === 配色はここだけ差し替えれば全画面に反映されます（現状は仮の値です） === */
+/* === 配色はここだけ差し替えれば全画面に反映されます === */
 :root{
-  --bg:#F8F5F5;
+  --bg:#FFFFFF;
   --panel:#FFFFFF;
   --line:#E4DBDB;
-  --line-soft:#F0E9E9;
+  --line-soft:#F2ECEC;
   --ink:#241E1E;
-  --muted:#7B7070;
+  --muted:#6E6464;
   --accent:#9B2B33;
-  --accent-soft:#F6EAEB;
-  --mall:#6E6868;
-  --mall-soft:#EDEBEB;
+  --accent-soft:#F8EEEF;
   --hi:#6B1C24;
-  --hi-soft:#F1E4E5;
+  --hi-soft:#F3E7E8;
   --radius:4px;
 }
 *{box-sizing:border-box}
 html,body{margin:0;padding:0}
-body{background:var(--bg);color:var(--ink);
-  font-family:"Meiryo","メイリオ","Hiragino Kaku Gothic ProN","Yu Gothic","Noto Sans JP",sans-serif;
-  font-size:15px;line-height:1.75}
-button{font-family:inherit;font-size:inherit;color:inherit}
-:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-.app{display:grid;grid-template-columns:272px 1fr;min-height:100vh}
+body{
+  background:var(--bg);color:var(--ink);
+  font-family:"Meiryo UI","メイリオ","Meiryo","Hiragino Kaku Gothic ProN","Noto Sans JP",sans-serif;
+  font-size:14pt;line-height:1.7;
+}
+button{font-family:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+img{max-width:100%}
 
-.rail{background:var(--panel);border-right:1px solid var(--line);padding:20px 16px 40px;position:sticky;top:0;height:100vh;overflow-y:auto}
-.rail h1{font-size:14px;letter-spacing:.08em;margin:0 0 4px;font-weight:700}
-.rail .sub{font-size:11px;color:var(--muted);margin:0 0 20px;line-height:1.6}
-.grp{margin-bottom:18px}
-.grp-hd{display:flex;align-items:center;gap:7px;font-size:11px;font-weight:700;letter-spacing:.06em;padding:5px 6px;border-radius:3px;margin-bottom:6px}
-.grp-hd .dot{width:8px;height:8px;border-radius:2px;flex:none}
-.g-corp .grp-hd{background:var(--accent-soft);color:var(--accent)}.g-corp .dot{background:var(--accent)}
-.g-mall .grp-hd{background:var(--mall-soft);color:var(--mall)}.g-mall .dot{background:var(--mall)}
-.nodes{list-style:none;margin:0;padding:0 0 0 4px;border-left:1px solid var(--line-soft)}
-.nodes li{position:relative}
-.nodes li::before{content:"";position:absolute;left:0;top:15px;width:8px;height:1px;background:var(--line-soft)}
-.nodes li.lv2::before{left:12px}
-.nodes li.lv3::before{left:22px}
-.nodes li.lv4::before{left:32px}
-.nodes button{display:block;width:100%;text-align:left;background:none;border:0;padding:4px 8px 4px 16px;font-size:12.5px;color:var(--muted);cursor:pointer;border-radius:3px;line-height:1.5}
-.nodes button.lv2{padding-left:26px}
-.nodes button.lv3{padding-left:36px}
-.nodes button.lv4{padding-left:46px}
-.nodes button:hover{background:var(--line-soft);color:var(--ink)}
-.nodes button[aria-current="true"]{background:var(--ink);color:#fff;font-weight:700}
-
-main{padding:0 0 60px;min-width:0}
-.topbar{position:sticky;top:0;z-index:5;background:rgba(248,245,245,.95);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);padding:10px 32px 0}
-.tline{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding-bottom:8px}
-.badge{font-size:11px;font-weight:700;padding:3px 9px;border-radius:2px;letter-spacing:.04em}
-.b-corp{background:var(--accent);color:#fff}
-.b-mall{background:var(--mall);color:#fff}
-.crumb{font-size:12px;color:var(--muted)}
-.crumb b{color:var(--ink);font-weight:700}
-.backbtn{margin-left:auto;background:var(--panel);border:1px solid var(--line);border-radius:3px;padding:4px 12px;font-size:12px;cursor:pointer;color:var(--muted)}
+/* ---------- トップバー ---------- */
+.topbar{
+  position:sticky;top:0;z-index:40;background:#fff;
+  border-bottom:1px solid var(--line);
+}
+.tline{display:flex;align-items:center;gap:14px;padding:12px 22px}
+.hamb{
+  background:none;border:1px solid var(--line);border-radius:var(--radius);
+  font-size:16pt;line-height:1;padding:8px 14px;cursor:pointer;flex:none;
+}
+.hamb:hover{border-color:var(--accent);color:var(--accent)}
+.backbtn{
+  background:none;border:1px solid var(--line);border-radius:var(--radius);
+  padding:8px 16px;font-size:14pt;cursor:pointer;color:var(--muted);flex:none;
+}
 .backbtn:hover{border-color:var(--muted);color:var(--ink)}
-.gnav{display:none;gap:2px;flex-wrap:wrap}
-.gnav.on{display:flex}
-.gnav button{background:none;border:0;border-bottom:2px solid transparent;padding:7px 14px;font-size:13px;color:var(--muted);cursor:pointer;font-weight:700;letter-spacing:.03em}
+.crumb{font-size:14pt;color:var(--muted);flex:1 1 auto;min-width:0;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.crumb b{color:var(--ink);font-weight:700}
+.lang{
+  margin-left:auto;flex:none;background:none;border:1px solid var(--line);
+  border-radius:var(--radius);padding:8px 16px;font-size:14pt;cursor:pointer;color:var(--muted);
+}
+.lang:hover{border-color:var(--accent);color:var(--accent)}
+
+.gnav{display:flex;gap:4px;flex-wrap:wrap;padding:0 22px}
+.gnav button{
+  background:none;border:0;border-bottom:3px solid transparent;
+  padding:10px 18px;font-size:14pt;color:var(--muted);cursor:pointer;font-weight:700;
+}
 .gnav button:hover{color:var(--ink)}
 .gnav button[aria-current="true"]{color:var(--accent);border-bottom-color:var(--accent)}
-.subnav{display:none;gap:6px;flex-wrap:wrap;padding:0 0 8px}
+
+.subnav{display:none;gap:8px;flex-wrap:wrap;padding:10px 22px 12px}
 .subnav.on{display:flex}
-.subnav button{border:1px solid var(--line);background:#fff;border-radius:20px;padding:3px 14px;font-size:12px;color:var(--muted);cursor:pointer}
+.subnav button{
+  border:1px solid var(--line);background:#fff;border-radius:40px;
+  padding:6px 20px;font-size:14pt;color:var(--muted);cursor:pointer;
+}
 .subnav button[aria-current="true"]{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:700}
 .subnav.lvl2 button[aria-current="true"]{background:var(--ink);border-color:var(--ink)}
 
-.wrap{max-width:900px;margin:0 auto;padding:26px 32px}
+/* ---------- ハンバーガーメニュー ---------- */
+.scrim{position:fixed;inset:0;background:rgba(20,14,14,.42);z-index:60;display:none}
+.scrim.on{display:block}
+.drawer{
+  position:fixed;top:0;left:0;bottom:0;width:min(460px,88vw);background:#fff;
+  z-index:70;transform:translateX(-102%);transition:transform .22s ease;
+  overflow-y:auto;padding:22px 20px 60px;border-right:1px solid var(--line);
+}
+.drawer.on{transform:translateX(0)}
+@media (prefers-reduced-motion: reduce){.drawer{transition:none}}
+.drawer .dh{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.drawer h2{font-size:15pt;margin:0;letter-spacing:.04em}
+.drawer .close{background:none;border:0;font-size:18pt;line-height:1;cursor:pointer;color:var(--muted);padding:4px 8px}
+.drawer .dsub{font-size:11.5pt;color:var(--muted);margin:0 0 20px;line-height:1.6}
+.nodes{list-style:none;margin:0;padding:0 0 0 4px;border-left:1px solid var(--line-soft)}
+.nodes li{position:relative}
+.nodes li::before{content:"";position:absolute;left:0;top:24px;width:9px;height:1px;background:var(--line-soft)}
+.nodes li.lv2::before{left:14px}
+.nodes li.lv3::before{left:26px}
+.nodes li.lv4::before{left:38px}
+.nodes button{
+  display:block;width:100%;text-align:left;background:none;border:0;
+  padding:7px 10px 7px 18px;font-size:14pt;color:var(--muted);cursor:pointer;
+  border-radius:var(--radius);line-height:1.5;
+}
+.nodes button.lv2{padding-left:30px}
+.nodes button.lv3{padding-left:42px}
+.nodes button.lv4{padding-left:54px}
+.nodes button:hover{background:var(--line-soft);color:var(--ink)}
+.nodes button[aria-current="true"]{background:var(--ink);color:#fff;font-weight:700}
+
+/* ---------- 画面 ---------- */
+.wrap{max-width:1060px;margin:0 auto;padding:30px 22px 80px}
 .screen{display:none}.screen.on{display:block}
 @media (prefers-reduced-motion: no-preference){
   .screen.on{animation:fade .18s ease-out}@keyframes fade{from{opacity:0}to{opacity:1}}
 }
 
-.hero{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:28px 32px;margin-bottom:22px}
-.hero .eyebrow{font-size:11px;letter-spacing:.14em;color:var(--muted);margin:0 0 8px}
-.hero h2{margin:0 0 8px;font-size:25px;letter-spacing:.04em;font-weight:700}
-.hero p{margin:0;color:var(--muted);font-size:13.5px}
-.hero.corp{border-top:2px solid var(--accent)}
-.hero.mall{border-top:2px solid var(--mall)}
-.hero.hi{border-top:2px solid var(--hi)}
-.pill{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.06em;padding:2px 9px;border-radius:20px;background:var(--hi-soft);color:var(--hi);margin-left:10px;vertical-align:3px}
-h3.sec{font-size:13px;letter-spacing:.08em;margin:26px 0 12px;font-weight:700}
-h3.sec span{color:var(--muted);font-weight:400;margin-left:8px;font-size:11.5px;letter-spacing:0}
-.cards{display:grid;gap:12px}
-.c2{grid-template-columns:repeat(2,1fr)}.c3{grid-template-columns:repeat(3,1fr)}.c4{grid-template-columns:repeat(4,1fr)}
-@media(max-width:860px){.c3,.c4{grid-template-columns:repeat(2,1fr)}}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:16px;text-align:left;cursor:pointer;width:100%}
+.hero{border:1px solid var(--line);border-radius:var(--radius);padding:32px 30px;margin-bottom:26px;border-top:3px solid var(--accent)}
+.hero.hi{border-top-color:var(--hi)}
+.hero .eyebrow{font-size:11pt;letter-spacing:.1em;color:var(--muted);margin:0 0 10px}
+.hero h2{margin:0 0 12px;font-size:22pt;letter-spacing:.04em;font-weight:700;line-height:1.4}
+.hero p{margin:0;color:var(--muted);font-size:14pt}
+.pill{display:inline-block;font-size:11.5pt;font-weight:700;padding:2px 16px;border-radius:40px;background:var(--hi-soft);color:var(--hi);margin-left:12px}
+
+h3.sec{font-size:16pt;letter-spacing:.05em;margin:34px 0 16px;font-weight:700}
+
+/* ---------- イメージ画像プレースホルダ ---------- */
+.imgph{
+  width:100%;aspect-ratio:16/10;border:1px solid var(--line);border-radius:var(--radius);
+  display:flex;align-items:center;justify-content:center;overflow:hidden;
+}
+.imgph svg{width:42%;height:auto;opacity:.75}
+.imgph.sq{aspect-ratio:1/1}
+.imgph.wide{aspect-ratio:21/9}
+.t-a{background:linear-gradient(140deg,#F7EEEF 0%,#EFE2E3 100%)}
+.t-b{background:linear-gradient(140deg,#F3F0EC 0%,#E8E2DA 100%)}
+.t-c{background:linear-gradient(140deg,#F2EDF0 0%,#E4DBE1 100%)}
+.t-d{background:linear-gradient(140deg,#EFF1F0 0%,#DFE4E2 100%)}
+
+/* ---------- カード ---------- */
+.cards{display:grid;gap:18px}
+.c2{grid-template-columns:repeat(2,1fr)}
+.c3{grid-template-columns:repeat(3,1fr)}
+.card{
+  background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+  padding:0;text-align:left;cursor:pointer;width:100%;overflow:hidden;
+}
 .card:hover{border-color:var(--accent)}
-.card.mall:hover{border-color:var(--mall)}
 .card.flat{cursor:default}.card.flat:hover{border-color:var(--line)}
-.card.dim{opacity:.65}
-.card .k{font-size:10.5px;letter-spacing:.1em;color:var(--muted);display:block;margin-bottom:5px}
-.card .t{font-size:15px;font-weight:700;display:block;margin-bottom:4px}
-.card .d{font-size:12px;color:var(--muted);display:block;line-height:1.6}
-.cta{display:inline-block;background:var(--accent);color:#fff;border:0;border-radius:3px;padding:11px 26px;font-size:14px;font-weight:700;cursor:pointer;margin-top:6px;letter-spacing:.04em}
+.card .cbody{padding:18px 20px 20px}
+.card .k{font-size:11pt;letter-spacing:.08em;color:var(--muted);display:block;margin-bottom:6px}
+.card .t{font-size:16pt;font-weight:700;display:block;margin-bottom:6px;line-height:1.4}
+.card .d{font-size:12pt;color:var(--muted);display:block;line-height:1.6}
+
+.cta{
+  display:inline-block;background:var(--accent);color:#fff;border:0;border-radius:var(--radius);
+  padding:14px 34px;font-size:14pt;font-weight:700;cursor:pointer;margin-top:10px;
+}
 .cta.hi{background:var(--hi)}
 .cta.ghost{background:none;color:var(--accent);border:1px solid var(--accent)}
-.note{border-left:2px solid var(--accent);background:var(--accent-soft);padding:12px 16px;font-size:12.5px;border-radius:0;margin:18px 0;color:#7A3038}
-.note.mall{border-color:var(--mall);background:var(--mall-soft);color:#4A4646}
-.note.hi{border-color:var(--hi);background:var(--hi-soft);color:#5C1A21}
-.note b{display:block;margin-bottom:3px}
-.note ol{margin:6px 0 0;padding-left:20px}
-.note li{margin-bottom:2px}
 
-.tbl{width:100%;border-collapse:collapse;background:var(--panel);border:1px solid var(--line);font-size:12.5px}
-.tbl th,.tbl td{padding:9px 12px;border-bottom:1px solid var(--line-soft);text-align:left;vertical-align:top}
-.tbl th{background:#FCF9F9;font-size:11.5px;color:var(--muted);font-weight:700;white-space:nowrap}
+.tbl{width:100%;border-collapse:collapse;border:1px solid var(--line);font-size:12pt}
+.tbl th,.tbl td{padding:12px 16px;border-bottom:1px solid var(--line-soft);text-align:left;vertical-align:top}
+.tbl th{background:#FCF9F9;color:var(--muted);font-weight:700;white-space:nowrap}
 .tbl tr:last-child td{border-bottom:0}
 
-.listwrap{display:grid;grid-template-columns:214px 1fr;gap:22px}
-@media(max-width:820px){.listwrap{grid-template-columns:1fr}}
-.filters{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:16px}
-.filters .fh{font-size:11px;letter-spacing:.08em;color:var(--muted);margin:0 0 12px}
-.fgrp{margin-bottom:15px}
-.fgrp .lbl{font-size:11.5px;font-weight:700;display:block;margin-bottom:6px}
-.fgrp .lbl em{font-style:normal;font-weight:400;color:var(--muted);font-size:10.5px;margin-left:5px}
-.chips{display:flex;flex-wrap:wrap;gap:5px}
-.chip{border:1px solid var(--line);background:#fff;border-radius:20px;padding:3px 11px;font-size:11.5px;cursor:pointer;color:var(--muted)}
+/* ---------- 絞り込み＋一覧 ---------- */
+.filters{border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px;margin-bottom:22px}
+.filters .fh{font-size:11pt;letter-spacing:.06em;color:var(--muted);margin:0 0 14px}
+.fgrp{margin-bottom:16px}
+.fgrp:last-child{margin-bottom:0}
+.fgrp .lbl{font-size:12pt;font-weight:700;display:block;margin-bottom:8px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--line);background:#fff;border-radius:40px;padding:4px 15px;font-size:12pt;cursor:pointer;color:var(--muted)}
 .chip:hover{border-color:var(--muted)}
 .chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
-.pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-@media(max-width:820px){.pgrid{grid-template-columns:repeat(2,1fr)}}
-.prod{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:12px;cursor:pointer;text-align:left;width:100%}
+.count{font-size:12pt;color:var(--muted);margin:0 0 16px}
+.pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.prod{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:0;cursor:pointer;text-align:left;width:100%;overflow:hidden}
 .prod:hover{border-color:var(--accent)}
-.ph{background:var(--line-soft);border-radius:3px;height:96px;display:flex;align-items:center;justify-content:center;margin-bottom:9px}
-.prod .pn{font-size:12.5px;font-weight:700;display:block;line-height:1.5;margin-bottom:3px}
-.prod .pp{font-size:12px;color:var(--muted)}
-.count{font-size:12px;color:var(--muted);margin:0 0 12px}
+.prod .cbody{padding:16px 18px 18px}
+.prod .pn{font-size:14pt;font-weight:700;display:block;line-height:1.5;margin-bottom:4px}
+.prod .pp{font-size:12pt;color:var(--muted)}
 
-.detail{display:grid;grid-template-columns:300px 1fr;gap:26px;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:24px}
-@media(max-width:820px){.detail{grid-template-columns:1fr}}
-.detail .ph{height:240px}
-.spec{list-style:none;margin:14px 0 20px;padding:0;font-size:13px}
-.spec li{display:flex;gap:12px;padding:6px 0;border-bottom:1px solid var(--line-soft)}
-.spec .sk{color:var(--muted);width:96px;flex:none;font-size:12px}
-.price{font-size:22px;font-weight:700;margin:6px 0 0}
+/* ---------- 詳細 ---------- */
+.detail{display:grid;grid-template-columns:340px 1fr;gap:30px;border:1px solid var(--line);border-radius:var(--radius);padding:28px}
+.detail .dcat{font-size:11pt;letter-spacing:.08em;color:var(--muted);margin:0 0 8px}
+.detail h2{margin:0 0 8px;font-size:19pt;line-height:1.4}
+.spec{list-style:none;margin:18px 0 24px;padding:0;font-size:14pt}
+.spec li{display:flex;gap:16px;padding:8px 0;border-bottom:1px solid var(--line-soft)}
+.spec .sk{color:var(--muted);width:110px;flex:none}
+.price{font-size:19pt;font-weight:700;margin:8px 0 0}
 
-.form{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:24px;max-width:520px}
-.field{margin-bottom:14px}
-.field label{display:block;font-size:12px;font-weight:700;margin-bottom:5px}
-.field .box{border:1px solid var(--line);border-radius:3px;height:38px;background:#FDFAFA;color:var(--muted);font-size:12.5px;padding:8px 10px}
-.field .box.tall{height:84px}
+/* ---------- ブランド ---------- */
+.brandblk{border:1px solid var(--line);border-radius:var(--radius);padding:30px;margin-bottom:18px}
+.brandblk .bcat{font-size:11pt;letter-spacing:.12em;color:var(--muted);margin:0 0 8px}
+.brandblk .bname{font-size:19pt;font-weight:700;letter-spacing:.04em;margin:0 0 16px}
+.brandblk .btag{font-size:17pt;line-height:1.7;color:var(--accent);margin:0 0 16px;font-weight:700}
+.brandblk .bbody{font-size:14pt;line-height:1.95;margin:0 0 18px}
+.bvals{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.bvals span{border:1px solid var(--line);border-radius:40px;padding:4px 15px;font-size:12pt;color:var(--muted)}
+.blink{background:none;border:0;padding:0;font-size:12pt;color:var(--muted);cursor:pointer;text-decoration:underline;text-underline-offset:4px}
+.blink:hover{color:var(--accent)}
 
-.foot{margin-top:34px;border-top:1px solid var(--line);padding-top:18px;display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
-@media(max-width:820px){.foot{grid-template-columns:repeat(2,1fr)}}
-.foot .fh2{font-size:11px;letter-spacing:.08em;color:var(--muted);margin:0 0 7px}
-.foot a{display:block;color:var(--ink);text-decoration:none;padding:2px 0;cursor:pointer;border:0;background:none;font-size:12px;text-align:left}
+/* ---------- 店舗 ---------- */
+.storegrid{display:grid;grid-template-columns:1fr 1fr;gap:26px;align-items:start}
+.storeinfo{font-size:14pt}
+.storeinfo dl{margin:0}
+.storeinfo dt{color:var(--muted);font-size:11.5pt;margin-top:14px}
+.storeinfo dt:first-child{margin-top:0}
+.storeinfo dd{margin:2px 0 0;font-weight:700}
+.contact{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.cbtn{
+  border:1px solid var(--line);border-radius:var(--radius);background:#fff;
+  padding:22px 16px;text-align:center;cursor:pointer;
+}
+.cbtn:hover{border-color:var(--accent)}
+.cbtn svg{width:44px;height:44px;display:block;margin:0 auto 10px;opacity:.8}
+.cbtn .cl{display:block;font-size:14pt;font-weight:700;margin-bottom:2px}
+.cbtn .cv{display:block;font-size:12pt;color:var(--muted)}
+
+/* ---------- フォーム ---------- */
+.form{border:1px solid var(--line);border-radius:var(--radius);padding:28px;max-width:720px}
+.field{margin-bottom:18px}
+.field label{display:block;font-size:12pt;font-weight:700;margin-bottom:7px}
+.field .box{border:1px solid var(--line);border-radius:var(--radius);min-height:52px;background:#FDFBFB;color:var(--muted);font-size:14pt;padding:10px 14px}
+.field .box.tall{min-height:120px}
+
+/* ---------- フッター ---------- */
+.foot{margin-top:44px;border-top:1px solid var(--line);padding-top:24px;display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+.foot .fh2{font-size:11pt;letter-spacing:.06em;color:var(--muted);margin:0 0 9px}
+.foot a{display:block;color:var(--ink);text-decoration:none;padding:3px 0;cursor:pointer;border:0;background:none;font-size:12pt;text-align:left}
 .foot a:hover{text-decoration:underline}
 
-.brandblk{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:26px 28px;margin-bottom:14px}
-.brandblk .bcat{font-size:10.5px;letter-spacing:.16em;color:var(--muted);margin:0 0 6px}
-.brandblk .bname{font-size:20px;font-weight:700;letter-spacing:.04em;margin:0 0 14px}
-.brandblk .btag{font-size:17px;line-height:1.7;color:var(--accent);margin:0 0 14px;font-weight:700;letter-spacing:.03em}
-.brandblk .bbody{font-size:13.5px;line-height:2;color:var(--ink);margin:0 0 16px;max-width:640px}
-.bvals{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
-.bvals span{border:1px solid var(--line);border-radius:20px;padding:3px 12px;font-size:11.5px;color:var(--muted)}
-.blink{background:none;border:0;padding:0;font-size:12px;color:var(--muted);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
-.blink:hover{color:var(--accent)}
-.mapgrid{display:grid;grid-template-columns:1.4fr 1fr;gap:14px;align-items:start}
-@media(max-width:820px){.mapgrid{grid-template-columns:1fr}}
-.mapcol{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:16px}
-.mapcol.corp{border-top:2px solid var(--accent)}
-.mapcol.mall{border-top:2px solid var(--mall)}
-.mapcol h4{margin:0 0 3px;font-size:14px}
-.mapcol .role{font-size:11.5px;color:var(--muted);margin:0 0 12px;line-height:1.6}
-.mapcol ul{list-style:none;margin:0;padding:0;font-size:12.5px}
-.mapcol li{padding:4px 0 4px 12px;position:relative;color:var(--muted)}
-.mapcol li::before{content:"";position:absolute;left:0;top:13px;width:5px;height:1px;background:var(--line)}
+/* ---------- 全体構成 ---------- */
+.mapcol{border:1px solid var(--line);border-radius:var(--radius);padding:22px;border-top:3px solid var(--accent)}
+.mapcol h4{margin:0 0 4px;font-size:16pt}
+.mapcol .role{font-size:12pt;color:var(--muted);margin:0 0 16px;line-height:1.6}
+.mapcol ul{list-style:none;margin:0;padding:0;font-size:12pt}
+.mapcol li{padding:5px 0 5px 14px;position:relative;color:var(--muted)}
+.mapcol li::before{content:"";position:absolute;left:0;top:20px;width:6px;height:1px;background:var(--line)}
 .mapcol li.hd{color:var(--ink);font-weight:700}
-.mapcol li.ind{padding-left:26px}
-.mapcol li.ind::before{left:14px}
+.mapcol li.ind{padding-left:30px}
+.mapcol li.ind::before{left:16px}
+
+/* ---------- レスポンシブ ---------- */
+@media(max-width:1000px){
+  .pgrid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:900px){
+  .c3,.c2,.pgrid,.contact,.storegrid,.detail{grid-template-columns:1fr}
+  .foot{grid-template-columns:repeat(2,1fr)}
+  .wrap{padding:22px 16px 70px}
+  .hero{padding:24px 20px}
+  .hero h2{font-size:19pt}
+  .tline{padding:10px 14px;gap:10px}
+  .gnav{padding:0 14px;overflow-x:auto;flex-wrap:nowrap}
+  .gnav button{white-space:nowrap;padding:10px 14px}
+  .subnav{padding:10px 14px;overflow-x:auto;flex-wrap:nowrap}
+  .subnav button{white-space:nowrap}
+  .crumb{display:none}
+  .spec .sk{width:120px}
+  .tbl th,.tbl td{padding:10px 12px}
+}
+@media(max-width:560px){
+  .backbtn{padding:8px 12px}
+  .lang{padding:8px 12px}
+  .brandblk{padding:22px 18px}
+  .detail{padding:20px}
+  .filters{padding:16px}
+}
 </style>
 </head>
 <body>
-<div class="app">
 
-<aside class="rail">
-  <h1>S社 遷移プロトタイプ v5</h1>
-  <p class="sub">学習目的で作成した構成案です。実在企業の公式サイトではありません。商品・価格はダミーです。</p>
+<!-- ========== トップバー ========== -->
+<header class="topbar">
+  <div class="tline">
+    <button class="hamb" id="hamb" aria-label="メニューを開く" aria-expanded="false">☰</button>
+    <button class="backbtn" id="back">← 戻る</button>
+    <span class="crumb" id="crumb"></span>
+    <button class="lang">JP / EN</button>
+  </div>
+  <nav class="gnav" id="gnav">
+    <button data-go="shop-top" data-sect="shop">オンラインショップ</button>
+    <button data-go="company" data-sect="company">会社イメージ</button>
+    <button data-go="brands" data-sect="brand">ブランド</button>
+    <button data-go="shops" data-sect="shops">ショップ</button>
+  </nav>
+  <nav class="subnav" id="subnav-line">
+    <button data-go="line-bridal" data-line="bridal">ブライダル</button>
+    <button data-go="line-fashion" data-line="fashion">ファッションジュエリー</button>
+    <button data-go="line-high" data-line="high">ハイジュエリー</button>
+  </nav>
+  <nav class="subnav lvl2" id="subnav-bridal">
+    <button data-go="bridal-engage" data-sub="engage">婚約</button>
+    <button data-go="bridal-marriage" data-sub="marriage">結婚</button>
+  </nav>
+</header>
 
-  <div class="grp g-corp">
-    <div class="grp-hd"><span class="dot"></span>① コーポレート</div>
-    <ul class="nodes">
-      <li><button data-go="corp-top">トップ</button></li>
-      <li class="lv2"><button class="lv2" data-go="shop-top">オンラインショップ</button></li>
-      <li class="lv3"><button class="lv3" data-go="line-bridal">ブライダル</button></li>
-      <li class="lv4"><button class="lv4" data-go="bridal-engage">婚約（一覧）</button></li>
-      <li class="lv4"><button class="lv4" data-go="bridal-marriage">結婚（一覧）</button></li>
-      <li class="lv3"><button class="lv3" data-go="line-fashion">ファッションジュエリー（一覧）</button></li>
-      <li class="lv3"><button class="lv3" data-go="line-high">ハイジュエリー</button></li>
-      <li class="lv2"><button class="lv2" data-go="company">会社イメージ</button></li>
-      <li class="lv2"><button class="lv2" data-go="brands">ブランド</button></li>
-      <li class="lv2"><button class="lv2" data-go="shops">ショップ</button></li>
-      <li class="lv3"><button class="lv3" data-go="reserve">来店予約</button></li>
+<!-- ========== ハンバーガーメニュー ========== -->
+<div class="scrim" id="scrim"></div>
+<nav class="drawer" id="drawer" aria-label="サイト構成">
+  <div class="dh">
+    <h2>サイト構成</h2>
+    <button class="close" id="dclose" aria-label="閉じる">×</button>
+  </div>
+  <p class="dsub">学習目的で作成した構成案です。実在企業の公式サイトではありません。商品・価格はダミーです。</p>
+  <ul class="nodes">
+    <li><button data-go="corp-top">トップ</button></li>
+    <li class="lv2"><button class="lv2" data-go="shop-top">オンラインショップ</button></li>
+    <li class="lv3"><button class="lv3" data-go="line-bridal">ブライダル</button></li>
+    <li class="lv4"><button class="lv4" data-go="bridal-engage">婚約</button></li>
+    <li class="lv4"><button class="lv4" data-go="bridal-marriage">結婚</button></li>
+    <li class="lv3"><button class="lv3" data-go="line-fashion">ファッションジュエリー</button></li>
+    <li class="lv3"><button class="lv3" data-go="line-high">ハイジュエリー</button></li>
+    <li class="lv2"><button class="lv2" data-go="company">会社イメージ</button></li>
+    <li class="lv2"><button class="lv2" data-go="brands">ブランド</button></li>
+    <li class="lv2"><button class="lv2" data-go="shops">ショップ</button></li>
+    <li class="lv3"><button class="lv3" data-go="reserve">来店予約</button></li>
+    <li><button data-go="sitemap">全体構成を見る</button></li>
+  </ul>
+</nav>
+
+<main class="wrap">
+
+<!-- ========== 全体構成 ========== -->
+<section class="screen" id="sitemap">
+  <div class="hero">
+    <p class="eyebrow">OVERVIEW</p>
+    <h2>全体構成</h2>
+    <p>コーポレートサイトを4区分に整理し、オンラインショップの中を3ラインで切ります。</p>
+  </div>
+  <div class="mapcol">
+    <h4>コーポレートサイト</h4>
+    <p class="role">ブランドイメージと販売を一本化します。</p>
+    <ul>
+      <li class="hd">オンラインショップ</li>
+      <li class="ind">ブライダル ＞ 婚約 ／ 結婚</li>
+      <li class="ind">ファッションジュエリー</li>
+      <li class="ind">ハイジュエリー</li>
+      <li class="hd">会社イメージ</li>
+      <li class="ind">直輸入・自社工房・製造直販・ロケ地提供</li>
+      <li class="hd">ブランド</li>
+      <li class="ind">S社 ／ ブランドA ／ オーダーメイドライン</li>
+      <li class="hd">ショップ</li>
+      <li class="ind">店舗情報・お問い合わせ・来店予約</li>
     </ul>
   </div>
+  <h3 class="sec">3ラインの位置づけ</h3>
+  <table class="tbl">
+    <tr><th>ライン</th><th>想定価格帯</th><th>顧客</th></tr>
+    <tr><td>ブライダル</td><td>〜100万円</td><td>結婚を控えたカップル</td></tr>
+    <tr><td>ファッションジュエリー</td><td>〜10万円中心</td><td>自分用・ギフト</td></tr>
+    <tr><td>ハイジュエリー</td><td>100万円〜</td><td>富裕層（新規事業）</td></tr>
+  </table>
+</section>
 
-  <div class="grp g-mall">
-    <div class="grp-hd"><span class="dot"></span>② 外部モール</div>
-    <ul class="nodes">
-      <li><button data-go="malls">モール一覧</button></li>
-    </ul>
+<!-- ========== トップ ========== -->
+<section class="screen" id="corp-top">
+  <div class="hero">
+    <p class="eyebrow">S社 ／ 創業◯◯年 東京都内</p>
+    <h2>一生ものを、つくる人から。</h2>
+    <p>自社工房と鑑定資格を持つスタッフによる製造直販。</p>
+  </div>
+  <h3 class="sec">4つの入口</h3>
+  <div class="cards c2">
+    <button class="card" data-go="shop-top">
+      <span class="imgph t-a"><svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><circle cx="46" cy="72" r="26" fill="none" stroke="#9B2B33" stroke-width="3"/><circle cx="76" cy="72" r="26" fill="none" stroke="#9B2B33" stroke-width="3"/><path d="M54 30 L61 14 L68 30 L61 40 Z" fill="none" stroke="#9B2B33" stroke-width="3" stroke-linejoin="round"/></svg></span>
+      <span class="cbody"><span class="k">01</span><span class="t">オンラインショップ</span><span class="d">3ラインから選ぶ</span></span>
+    </button>
+    <button class="card" data-go="company">
+      <span class="imgph t-b"><svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><path d="M24 46 L96 46 L60 100 Z" fill="none" stroke="#6B1C24" stroke-width="3" stroke-linejoin="round"/><path d="M24 46 L38 22 L82 22 L96 46" fill="none" stroke="#6B1C24" stroke-width="3" stroke-linejoin="round"/><path d="M38 22 L48 46 L60 100 L72 46 L82 22" fill="none" stroke="#6B1C24" stroke-width="2"/></svg></span>
+      <span class="cbody"><span class="k">02</span><span class="t">会社イメージ</span><span class="d">創業・工房・品質</span></span>
+    </button>
+    <button class="card" data-go="brands">
+      <span class="imgph t-c"><svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><path d="M60 20 C40 44 34 60 34 72 A26 26 0 0 0 86 72 C86 60 80 44 60 20 Z" fill="none" stroke="#9B2B33" stroke-width="3" stroke-linejoin="round"/><path d="M60 52 C50 64 48 70 48 76" fill="none" stroke="#9B2B33" stroke-width="2"/></svg></span>
+      <span class="cbody"><span class="k">03</span><span class="t">ブランド</span><span class="d">3つのブランドの価値観</span></span>
+    </button>
+    <button class="card" data-go="shops">
+      <span class="imgph t-d"><svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><path d="M60 18 A26 26 0 0 1 86 44 C86 64 60 102 60 102 C60 102 34 64 34 44 A26 26 0 0 1 60 18 Z" fill="none" stroke="#6B1C24" stroke-width="3" stroke-linejoin="round"/><circle cx="60" cy="44" r="10" fill="none" stroke="#6B1C24" stroke-width="3"/></svg></span>
+      <span class="cbody"><span class="k">04</span><span class="t">ショップ</span><span class="d">店舗・お問い合わせ・来店予約</span></span>
+    </button>
+  </div>
+  <div class="foot">
+    <div><p class="fh2">オンラインショップ</p><a data-go="bridal-engage">婚約</a><a data-go="bridal-marriage">結婚</a><a data-go="line-fashion">ファッションジュエリー</a><a data-go="line-high">ハイジュエリー</a></div>
+    <div><p class="fh2">会社イメージ</p><a data-go="company">S社について</a><a data-go="company">ロケ地・衣装提供</a></div>
+    <div><p class="fh2">ブランド</p><a data-go="brands">ブランド一覧</a></div>
+    <div><p class="fh2">ショップ</p><a data-go="shops">店舗情報</a><a data-go="reserve">来店予約</a></div>
+  </div>
+</section>
+
+<!-- ========== オンラインショップ ========== -->
+<section class="screen" id="shop-top">
+  <div class="hero">
+    <p class="eyebrow">01 ／ ONLINE SHOP</p>
+    <h2>オンラインショップ</h2>
+    <p>第1階層は3ライン。ブランドやデザインは階層に置かず、一覧の絞り込み条件にします。</p>
+  </div>
+  <div class="cards c3">
+    <button class="card" data-go="line-bridal">
+      <span class="imgph t-a"><svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><circle cx="46" cy="70" r="27" fill="none" stroke="#9B2B33" stroke-width="3"/><circle cx="76" cy="70" r="27" fill="none" stroke="#9B2B33" stroke-width="3"/></svg></span>
+      <span class="cbody"><span class="k">LINE 01</span><span class="t">ブライダル</span><span class="d">婚約・結婚</span></span>
+    </button>
+    <button class="card" data-go="line-fashion">
+      <span class="imgph t-c"><svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><path d="M22 26 C34 74 86 74 98 26" fill="none" stroke="#9B2B33" stroke-width="3"/><circle cx="60" cy="80" r="12" fill="none" stroke="#9B2B33" stroke-width="3"/><path d="M60 68 L60 60" stroke="#9B2B33" stroke-width="3"/></svg></span>
+      <span class="cbody"><span class="k">LINE 02</span><span class="t">ファッションジュエリー</span><span class="d">リングもネックレスも</span></span>
+    </button>
+    <button class="card" data-go="line-high">
+      <span class="imgph t-b"><svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><path d="M30 46 L48 22 L72 22 L90 46 L60 98 Z" fill="none" stroke="#6B1C24" stroke-width="3" stroke-linejoin="round"/><path d="M30 46 L90 46 M48 22 L60 46 L72 22 M60 46 L60 98" fill="none" stroke="#6B1C24" stroke-width="2"/></svg></span>
+      <span class="cbody"><span class="k">LINE 03</span><span class="t">ハイジュエリー</span><span class="d">100万円〜。新規事業</span></span>
+    </button>
+  </div>
+</section>
+
+<!-- ========== ブライダル ========== -->
+<section class="screen" id="line-bridal">
+  <div class="hero">
+    <p class="eyebrow">ONLINE SHOP ／ LINE 01</p>
+    <h2>ブライダル</h2>
+    <p>婚約と結婚。ふたりで決めるための一本を、自社工房でお作りします。</p>
+  </div>
+  <h3 class="sec">用途から選ぶ</h3>
+  <div class="cards c2">
+    <button class="card" data-go="bridal-engage">
+      <span class="imgph t-a"><svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><circle cx="60" cy="76" r="26" fill="none" stroke="#9B2B33" stroke-width="3"/><path d="M50 40 L60 18 L70 40 L60 52 Z" fill="none" stroke="#9B2B33" stroke-width="3" stroke-linejoin="round"/><path d="M50 40 L70 40" stroke="#9B2B33" stroke-width="2"/></svg></span>
+      <span class="cbody"><span class="k">01</span><span class="t">婚約</span><span class="d">婚約指輪・プロポーズネックレス　152点</span></span>
+    </button>
+    <button class="card" data-go="bridal-marriage">
+      <span class="imgph t-b"><svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><ellipse cx="46" cy="60" rx="24" ry="28" fill="none" stroke="#6B1C24" stroke-width="3"/><ellipse cx="46" cy="60" rx="17" ry="21" fill="none" stroke="#6B1C24" stroke-width="1.5"/><ellipse cx="76" cy="60" rx="24" ry="28" fill="none" stroke="#6B1C24" stroke-width="3"/><ellipse cx="76" cy="60" rx="17" ry="21" fill="none" stroke="#6B1C24" stroke-width="1.5"/></svg></span>
+      <span class="cbody"><span class="k">02</span><span class="t">結婚</span><span class="d">結婚指輪・セットリング　396点</span></span>
+    </button>
+  </div>
+  <button class="cta ghost" data-go="reserve">実物を見に行く（来店予約）</button>
+</section>
+
+<!-- ========== 婚約 ========== -->
+<section class="screen" id="bridal-engage">
+  <div class="hero">
+    <p class="eyebrow">ブライダル ／ 婚約</p>
+    <h2>婚約</h2>
+    <p>鑑定士が直輸入したダイヤモンドから選べます。</p>
+  </div>
+  <div class="filters">
+    <p class="fh">絞り込み</p>
+    <div class="fgrp"><span class="lbl">ブランド・ライン</span><div class="chips">
+      <button class="chip" aria-pressed="false">S社</button>
+      <button class="chip" aria-pressed="false">オーダーメイドライン</button>
+      <button class="chip" aria-pressed="false">選べるリング</button>
+      <button class="chip" aria-pressed="false">一粒ライン</button>
+    </div></div>
+    <div class="fgrp"><span class="lbl">カラット</span><div class="chips">
+      <button class="chip" aria-pressed="false">〜0.2</button>
+      <button class="chip" aria-pressed="true">0.3〜0.5</button>
+      <button class="chip" aria-pressed="false">0.6〜0.9</button>
+    </div></div>
+    <div class="fgrp"><span class="lbl">価格帯</span><div class="chips">
+      <button class="chip" aria-pressed="false">〜10万</button>
+      <button class="chip" aria-pressed="false">10〜20万</button>
+      <button class="chip" aria-pressed="false">20〜50万</button>
+      <button class="chip" aria-pressed="false">50〜100万</button>
+    </div></div>
+    <div class="fgrp"><span class="lbl">素材</span><div class="chips">
+      <button class="chip" aria-pressed="false">Pt900</button>
+      <button class="chip" aria-pressed="false">K18YG</button>
+      <button class="chip" aria-pressed="false">K18PG</button>
+      <button class="chip" aria-pressed="false">コンビ</button>
+    </div></div>
+  </div>
+  <p class="count">18件　／　カラット：0.3〜0.5</p>
+  <div class="pgrid" id="pgrid-engage"></div>
+</section>
+
+<!-- ========== 結婚 ========== -->
+<section class="screen" id="bridal-marriage">
+  <div class="hero">
+    <p class="eyebrow">ブライダル ／ 結婚</p>
+    <h2>結婚</h2>
+    <p>毎日つけるものだから、着け心地から選びます。</p>
+  </div>
+  <div class="filters">
+    <p class="fh">絞り込み</p>
+    <div class="fgrp"><span class="lbl">ブランド・ライン</span><div class="chips">
+      <button class="chip" aria-pressed="false">S社</button>
+      <button class="chip" aria-pressed="false">オーダーメイドライン</button>
+      <button class="chip" aria-pressed="false">選べるリング</button>
+      <button class="chip" aria-pressed="false">ペアライン</button>
+    </div></div>
+    <div class="fgrp"><span class="lbl">カラット</span><div class="chips">
+      <button class="chip" aria-pressed="false">なし（地金）</button>
+      <button class="chip" aria-pressed="false">〜0.1</button>
+      <button class="chip" aria-pressed="false">0.1〜0.3</button>
+    </div></div>
+    <div class="fgrp"><span class="lbl">価格帯</span><div class="chips">
+      <button class="chip" aria-pressed="true">〜10万</button>
+      <button class="chip" aria-pressed="false">10〜20万</button>
+      <button class="chip" aria-pressed="false">20〜50万</button>
+    </div></div>
+    <div class="fgrp"><span class="lbl">素材</span><div class="chips">
+      <button class="chip" aria-pressed="false">Pt900</button>
+      <button class="chip" aria-pressed="false">K18YG</button>
+      <button class="chip" aria-pressed="false">K18PG</button>
+      <button class="chip" aria-pressed="false">コンビ</button>
+    </div></div>
+  </div>
+  <p class="count">24件　／　価格帯：〜10万</p>
+  <div class="pgrid" id="pgrid-marriage"></div>
+</section>
+
+<!-- ========== ブライダル詳細 ========== -->
+<section class="screen" id="detail-bridal">
+  <div class="detail">
+    <div><div class="imgph sq t-a"><svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><circle cx="60" cy="76" r="26" fill="none" stroke="#9B2B33" stroke-width="3"/><path d="M50 40 L60 18 L70 40 L60 52 Z" fill="none" stroke="#9B2B33" stroke-width="3" stroke-linejoin="round"/></svg></div></div>
+    <div>
+      <p class="dcat">ブライダル ／ 婚約</p>
+      <h2>エンゲージリング 0.3ct ハートシェイプ</h2>
+      <p class="price">¥180,000 <span style="font-size:11pt;color:var(--muted);font-weight:400">税込</span></p>
+      <ul class="spec">
+        <li><span class="sk">ライン</span><span>ブライダル ＞ 婚約</span></li>
+        <li><span class="sk">ブランド</span><span>S社</span></li>
+        <li><span class="sk">カラット</span><span>0.30ct</span></li>
+        <li><span class="sk">価格帯</span><span>10〜20万</span></li>
+        <li><span class="sk">素材</span><span>プラチナ900</span></li>
+      </ul>
+      <button class="cta">カートに入れる</button>
+      <button class="cta ghost" data-go="reserve">店舗で見る</button>
+    </div>
+  </div>
+</section>
+
+<!-- ========== ファッション ========== -->
+<section class="screen" id="line-fashion">
+  <div class="hero">
+    <p class="eyebrow">ONLINE SHOP ／ LINE 02</p>
+    <h2>ファッションジュエリー</h2>
+    <p>毎日のための、小さな一粒。リングもネックレスもここにあります。</p>
+  </div>
+  <div class="filters">
+    <p class="fh">絞り込み</p>
+    <div class="fgrp"><span class="lbl">アイテム</span><div class="chips">
+      <button class="chip" aria-pressed="true">ネックレス</button>
+      <button class="chip" aria-pressed="false">リング</button>
+      <button class="chip" aria-pressed="false">ピアス</button>
+      <button class="chip" aria-pressed="false">ブレスレット</button>
+    </div></div>
+    <div class="fgrp"><span class="lbl">ブランド・デザイン</span><div class="chips">
+      <button class="chip" aria-pressed="false">ブランドA</button>
+      <button class="chip" aria-pressed="false">カラーストーン</button>
+      <button class="chip" aria-pressed="false">シルバー</button>
+      <button class="chip" aria-pressed="false">誕生石</button>
+    </div></div>
+    <div class="fgrp"><span class="lbl">石</span><div class="chips">
+      <button class="chip" aria-pressed="true">ダイヤモンド</button>
+      <button class="chip" aria-pressed="false">パール</button>
+      <button class="chip" aria-pressed="false">カラーストーン</button>
+      <button class="chip" aria-pressed="false">石なし</button>
+    </div></div>
+    <div class="fgrp"><span class="lbl">素材</span><div class="chips">
+      <button class="chip" aria-pressed="false">K10</button>
+      <button class="chip" aria-pressed="false">K18</button>
+      <button class="chip" aria-pressed="false">Pt900</button>
+      <button class="chip" aria-pressed="false">SV925</button>
+    </div></div>
+    <div class="fgrp"><span class="lbl">価格帯</span><div class="chips">
+      <button class="chip" aria-pressed="false">〜3万</button>
+      <button class="chip" aria-pressed="false">3〜6万</button>
+      <button class="chip" aria-pressed="false">6〜10万</button>
+      <button class="chip" aria-pressed="false">10万〜</button>
+    </div></div>
+  </div>
+  <p class="count">32件　／　アイテム：ネックレス　石：ダイヤモンド</p>
+  <div class="pgrid" id="pgrid-fashion"></div>
+</section>
+
+<!-- ========== ファッション詳細 ========== -->
+<section class="screen" id="detail-fashion">
+  <div class="detail">
+    <div><div class="imgph sq t-c"><svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><path d="M22 26 C34 74 86 74 98 26" fill="none" stroke="#9B2B33" stroke-width="3"/><circle cx="60" cy="80" r="12" fill="none" stroke="#9B2B33" stroke-width="3"/></svg></div></div>
+    <div>
+      <p class="dcat">ファッションジュエリー</p>
+      <h2>K10 ダイヤモンド 0.1ct 覆輪ネックレス</h2>
+      <p class="price">¥33,000 <span style="font-size:11pt;color:var(--muted);font-weight:400">税込</span></p>
+      <ul class="spec">
+        <li><span class="sk">ライン</span><span>ファッションジュエリー</span></li>
+        <li><span class="sk">ブランド</span><span>ブランドA</span></li>
+        <li><span class="sk">石</span><span>ダイヤモンド 0.10ct</span></li>
+        <li><span class="sk">素材</span><span>K10 イエローゴールド</span></li>
+        <li><span class="sk">価格帯</span><span>〜3万</span></li>
+      </ul>
+      <button class="cta">カートに入れる</button>
+      <button class="cta ghost" data-go="reserve">店舗で見る</button>
+    </div>
+  </div>
+</section>
+
+<!-- ========== ハイジュエリー ========== -->
+<section class="screen" id="line-high">
+  <div class="hero hi">
+    <p class="eyebrow">ONLINE SHOP ／ LINE 03</p>
+    <h2>ハイジュエリー<span class="pill">新規事業</span></h2>
+    <p>100万円以上、富裕層向け。金や大粒ダイヤモンドを使った、資産性のあるジュエリーです。</p>
+  </div>
+  <div class="filters">
+    <p class="fh">絞り込み</p>
+    <div class="fgrp"><span class="lbl">カテゴリ</span><div class="chips">
+      <button class="chip" aria-pressed="true">金</button>
+      <button class="chip" aria-pressed="false">大粒ダイヤモンド</button>
+      <button class="chip" aria-pressed="false">ファンシーカラーダイヤモンド</button>
+      <button class="chip" aria-pressed="false">フルオーダー</button>
+    </div></div>
+    <div class="fgrp"><span class="lbl">アイテム</span><div class="chips">
+      <button class="chip" aria-pressed="false">ネックレス</button>
+      <button class="chip" aria-pressed="false">リング</button>
+      <button class="chip" aria-pressed="false">ピアス</button>
+      <button class="chip" aria-pressed="false">ブローチ</button>
+    </div></div>
+    <div class="fgrp"><span class="lbl">価格帯</span><div class="chips">
+      <button class="chip" aria-pressed="false">100〜300万</button>
+      <button class="chip" aria-pressed="false">300〜500万</button>
+      <button class="chip" aria-pressed="false">500万〜</button>
+    </div></div>
+  </div>
+  <p class="count">12件　／　カテゴリ：金</p>
+  <div class="pgrid" id="pgrid-high"></div>
+  <div style="margin-top:30px"><button class="cta hi" data-go="reserve">個別に相談する（来店予約）</button></div>
+</section>
+
+<!-- ========== ハイジュエリー詳細 ========== -->
+<section class="screen" id="detail-high">
+  <div class="detail">
+    <div><div class="imgph sq t-b"><svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><path d="M30 46 L48 22 L72 22 L90 46 L60 98 Z" fill="none" stroke="#6B1C24" stroke-width="3" stroke-linejoin="round"/><path d="M30 46 L90 46 M48 22 L60 46 L72 22 M60 46 L60 98" fill="none" stroke="#6B1C24" stroke-width="2"/></svg></div></div>
+    <div>
+      <p class="dcat">ハイジュエリー ／ 金</p>
+      <h2>K24 純金 ゴールドバー ペンダント 20g</h2>
+      <p class="price">¥1,480,000 <span style="font-size:11pt;color:var(--muted);font-weight:400">税込</span></p>
+      <ul class="spec">
+        <li><span class="sk">ライン</span><span>ハイジュエリー</span></li>
+        <li><span class="sk">カテゴリ</span><span>金</span></li>
+        <li><span class="sk">素材</span><span>K24 純金</span></li>
+        <li><span class="sk">重量</span><span>20g</span></li>
+        <li><span class="sk">価格帯</span><span>100〜300万</span></li>
+      </ul>
+      <button class="cta hi" data-go="reserve">個別に相談する</button>
+      <button class="cta ghost" data-go="line-high">一覧に戻る</button>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 会社イメージ ========== -->
+<section class="screen" id="company">
+  <div class="hero">
+    <p class="eyebrow">02 ／ ABOUT US</p>
+    <h2>会社イメージ</h2>
+    <p>創業◯◯年。企業としての信頼を伝える区分です。ここに商品は置きません。</p>
+  </div>
+  <div class="cards c2">
+    <div class="card flat">
+      <span class="imgph t-a"><svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><circle cx="52" cy="52" r="26" fill="none" stroke="#9B2B33" stroke-width="3"/><path d="M72 72 L96 96" stroke="#9B2B33" stroke-width="4" stroke-linecap="round"/><path d="M40 48 L64 48 L52 68 Z" fill="none" stroke="#9B2B33" stroke-width="2.5" stroke-linejoin="round"/><path d="M40 48 L46 38 L58 38 L64 48" fill="none" stroke="#9B2B33" stroke-width="2.5" stroke-linejoin="round"/></svg></span>
+      <span class="cbody"><span class="k">QUALITY</span><span class="t">ダイヤモンドの直輸入</span><span class="d">鑑定資格を持つスタッフが海外の市場で直接買い付けます。中間業者を通さないため、同じ品質でも価格を抑えられます。</span></span>
+    </div>
+    <div class="card flat">
+      <span class="imgph t-b"><svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><path d="M22 92 L52 62" stroke="#6B1C24" stroke-width="4" stroke-linecap="round"/><path d="M50 40 L74 16 L104 46 L80 70 Z" fill="none" stroke="#6B1C24" stroke-width="3" stroke-linejoin="round"/><path d="M46 56 L66 76" stroke="#6B1C24" stroke-width="3" stroke-linecap="round"/></svg></span>
+      <span class="cbody"><span class="k">CRAFTSMANSHIP</span><span class="t">自社工房</span><span class="d">熟練の職人が一点ずつ手作業で仕上げます。修理やサイズ直しも同じ工房で行うため、長く使い続けられます。</span></span>
+    </div>
+    <div class="card flat">
+      <span class="imgph t-c"><svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><path d="M62 18 L102 58 L62 98 L22 58 Z" fill="none" stroke="#9B2B33" stroke-width="3" stroke-linejoin="round"/><circle cx="62" cy="42" r="7" fill="none" stroke="#9B2B33" stroke-width="3"/><path d="M40 74 L84 74" stroke="#9B2B33" stroke-width="2.5"/></svg></span>
+      <span class="cbody"><span class="k">PRICE</span><span class="t">製造直販</span><span class="d">仕入れから製造、販売までを自社で担っています。卸を介さないぶん、価格に反映しています。</span></span>
+    </div>
+    <div class="card flat">
+      <span class="imgph t-d"><svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><rect x="20" y="38" width="80" height="52" rx="6" fill="none" stroke="#6B1C24" stroke-width="3"/><path d="M42 38 L50 24 L70 24 L78 38" fill="none" stroke="#6B1C24" stroke-width="3" stroke-linejoin="round"/><circle cx="60" cy="64" r="16" fill="none" stroke="#6B1C24" stroke-width="3"/></svg></span>
+      <span class="cbody"><span class="k">MEDIA</span><span class="t">ロケ地・衣装提供</span><span class="d">ドラマや映画の撮影に、店舗と商品を提供しています。作品を通じて店を知っていただく機会になっています。</span></span>
+    </div>
+  </div>
+  <h3 class="sec">会社情報</h3>
+  <table class="tbl">
+    <tr><th>会社名</th><td>株式会社◯◯</td></tr>
+    <tr><th>創業</th><td>◯◯年</td></tr>
+    <tr><th>所在地</th><td>東京都中央区◯◯町◯-◯</td></tr>
+    <tr><th>事業内容</th><td>ジュエリーの製造・小売</td></tr>
+  </table>
+</section>
+
+<!-- ========== ブランド ========== -->
+<section class="screen" id="brands">
+  <div class="hero">
+    <p class="eyebrow">03 ／ BRAND</p>
+    <h2>ブランド</h2>
+    <p>それぞれのブランドが、誰のために、何を大切にしてつくられているか。</p>
+  </div>
+  <div class="brandblk">
+    <p class="bcat">BRIDAL ／ HIGH JEWELRY</p>
+    <p class="bname">S社</p>
+    <p class="btag">一生に一度を、一生ものに。</p>
+    <p class="bbody">創業◯◯年。石を選ぶところから仕上げまで、すべて自社の工房で行っています。機械では出せないわずかな丸みや、指に触れたときの収まり。そうした目に見えない部分にこそ、職人が時間をかけています。<br>つくって終わりではありません。サイズが変わっても、傷がついても、直しながら使い続けていただく。何十年も先にお預かりすることを前提に、ひとつずつお作りしています。</p>
+    <div class="bvals"><span>職人の手仕事</span><span>自社工房での一貫製造</span><span>一生つきあう</span></div>
+    <button class="blink" data-go="line-bridal">このブランドの商品を見る</button>
+  </div>
+  <div class="brandblk">
+    <p class="bcat">FASHION JEWELRY</p>
+    <p class="bname">ブランドA</p>
+    <p class="btag">なんでもない日の、小さな自信に。</p>
+    <p class="bbody">特別な日のためのジュエリーは、着ける日を選びます。このブランドがつくっているのは、その反対のもの。仕事に行く朝も、近所に出かける昼も、そのまま着けていられるジュエリーです。<br>手に取りやすい価格にしていますが、素材と仕立ては変えていません。自分のために買う人が、誰にも説明せずに満足できること。それを基準にしています。</p>
+    <div class="bvals"><span>日常に寄り添う</span><span>手が届く上質</span><span>自分への贈り物</span></div>
+    <button class="blink" data-go="line-fashion">このブランドの商品を見る</button>
+  </div>
+  <div class="brandblk">
+    <p class="bcat">ORDER MADE</p>
+    <p class="bname">オーダーメイドライン</p>
+    <p class="btag">ふたりの話から、はじめる。</p>
+    <p class="bbody">できあがったものから選ぶのではなく、どこで出会って、どんな時間を過ごしてきたかをうかがうところから始まります。そこから、かたち、素材、石、そして内側に刻む言葉を決めていきます。<br>決めていく時間そのものが、あとから思い出になる。だから急がせません。何度でも相談しながら、ふたりだけの一本にしていきます。</p>
+    <div class="bvals"><span>対話からつくる</span><span>世界にひとつ</span><span>つくる時間も贈り物</span></div>
+    <button class="blink" data-go="bridal-engage">このラインの商品を見る</button>
+  </div>
+</section>
+
+<!-- ========== ショップ ========== -->
+<section class="screen" id="shops">
+  <div class="hero">
+    <p class="eyebrow">04 ／ SHOP</p>
+    <h2>実店舗</h2>
+    <p>実物を手に取って選んでいただけます。ご相談だけでもお気軽にお越しください。</p>
   </div>
 
-  <div class="grp">
-    <ul class="nodes" style="border:0;padding-left:0">
-      <li style="padding-left:0"><button data-go="sitemap" style="padding-left:8px">全体構成を見る</button></li>
-    </ul>
-  </div>
-</aside>
-
-<main>
-  <div class="topbar">
-    <div class="tline">
-      <span class="badge b-corp" id="badge">コーポレート</span>
-      <span class="crumb" id="crumb"></span>
-      <button class="backbtn" id="back">← 戻る</button>
+  <div class="storegrid">
+    <div class="imgph wide t-d" style="aspect-ratio:4/3">
+      <svg viewBox="0 0 200 150" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;opacity:1">
+        <rect width="200" height="150" fill="#EDF0EE"/>
+        <path d="M0 40 L200 28" stroke="#D6DBD8" stroke-width="9" fill="none"/>
+        <path d="M0 104 L200 96" stroke="#D6DBD8" stroke-width="7" fill="none"/>
+        <path d="M52 0 L60 150" stroke="#D6DBD8" stroke-width="8" fill="none"/>
+        <path d="M140 0 L134 150" stroke="#D6DBD8" stroke-width="6" fill="none"/>
+        <rect x="8" y="46" width="38" height="52" fill="#E4E8E5"/>
+        <rect x="66" y="46" width="60" height="46" fill="#E4E8E5"/>
+        <rect x="146" y="36" width="46" height="56" fill="#E4E8E5"/>
+        <rect x="66" y="110" width="58" height="34" fill="#E4E8E5"/>
+        <path d="M100 52 A16 16 0 0 1 116 68 C116 80 100 100 100 100 C100 100 84 80 84 68 A16 16 0 0 1 100 52 Z" fill="#9B2B33"/>
+        <circle cx="100" cy="68" r="6" fill="#EDF0EE"/>
+      </svg>
     </div>
-    <nav class="gnav" id="gnav-corp">
-      <button data-go="shop-top" data-sect="shop">オンラインショップ</button>
-      <button data-go="company" data-sect="company">会社イメージ</button>
-      <button data-go="brands" data-sect="brand">ブランド</button>
-      <button data-go="shops" data-sect="shops">ショップ</button>
-    </nav>
-    <nav class="subnav" id="subnav-line">
-      <button data-go="line-bridal" data-line="bridal">ブライダル</button>
-      <button data-go="line-fashion" data-line="fashion">ファッションジュエリー</button>
-      <button data-go="line-high" data-line="high">ハイジュエリー</button>
-    </nav>
-    <nav class="subnav lvl2" id="subnav-bridal">
-      <button data-go="bridal-engage" data-sub="engage">婚約</button>
-      <button data-go="bridal-marriage" data-sub="marriage">結婚</button>
-    </nav>
+    <div class="storeinfo">
+      <dl>
+        <dt>店舗名</dt><dd>S社 東京本店</dd>
+        <dt>所在地</dt><dd>東京都中央区◯◯町◯-◯</dd>
+        <dt>営業時間</dt><dd>10:00 － 18:00</dd>
+        <dt>定休日</dt><dd>水曜日</dd>
+        <dt>アクセス</dt><dd>◯◯駅 徒歩5分</dd>
+      </dl>
+    </div>
   </div>
 
-  <div class="wrap">
-
-  <!-- ===== 全体構成 ===== -->
-  <section class="screen" id="sitemap">
-    <div class="hero corp">
-      <p class="eyebrow">OVERVIEW</p>
-      <h2>全体構成</h2>
-      <p>サイトは2つだけ。コーポレートで全ラインを販売し、外部モールは低単価の買い切りのみを扱います。</p>
-    </div>
-    <div class="mapgrid">
-      <div class="mapcol corp">
-        <h4>① コーポレートサイト</h4>
-        <p class="role">ブランドイメージ＋販売。自社チャネルはここに一本化。</p>
-        <ul>
-          <li class="hd">オンラインショップ</li>
-          <li class="ind">ブライダル ＞ 婚約 ／ 結婚</li>
-          <li class="ind">ファッションジュエリー</li>
-          <li class="ind">ハイジュエリー</li>
-          <li class="hd">会社イメージ</li>
-          <li class="ind">創業・工房・品質・メディア</li>
-          <li class="hd">ブランド</li>
-          <li class="ind">S社 ／ ブランドA ／ オーダーメイドライン</li>
-          <li class="hd">ショップ</li>
-          <li class="ind">店舗情報・来店予約</li>
-          <li class="ind">モール一覧</li>
-        </ul>
-      </div>
-      <div class="mapcol mall">
-        <h4>② 外部モール</h4>
-        <p class="role">低単価の買い切り商品のみ</p>
-        <ul>
-          <li>楽天市場店</li>
-          <li>Amazon店</li>
-          <li>Yahoo!ショッピング店</li>
-          <li>ZOZOTOWN店（検討）</li>
-        </ul>
-      </div>
-    </div>
-
-    <h3 class="sec">3ラインの位置づけ</h3>
-    <table class="tbl">
-      <tr><th>ライン</th><th>想定価格帯</th><th>顧客</th><th>販売チャネル</th></tr>
-      <tr><td>ブライダル</td><td>〜100万円</td><td>結婚を控えたカップル</td><td>コーポレート＋店舗</td></tr>
-      <tr><td>ファッションジュエリー</td><td>〜10万円中心</td><td>自分用・ギフト</td><td>コーポレート＋店舗＋モール</td></tr>
-      <tr><td>ハイジュエリー</td><td>100万円〜</td><td>富裕層（新規事業）</td><td>店舗中心。モールには出さない</td></tr>
-    </table>
-    </section>
-
-  <!-- ===== コーポレート トップ ===== -->
-  <section class="screen" id="corp-top">
-    <div class="hero corp">
-      <p class="eyebrow">S社 ／ 創業◯◯年 東京都内</p>
-      <h2>一生ものを、つくる人から。</h2>
-      <p>自社工房とGIA鑑定士による製造直販。</p>
-    </div>
-    <h3 class="sec">4つの入口</h3>
-    <div class="cards c4">
-      <button class="card" data-go="shop-top"><span class="k">01</span><span class="t">オンラインショップ</span><span class="d">3ラインから選ぶ</span></button>
-      <button class="card" data-go="company"><span class="k">02</span><span class="t">会社イメージ</span><span class="d">創業・工房・品質</span></button>
-      <button class="card" data-go="brands"><span class="k">03</span><span class="t">ブランド</span><span class="d">S社・ブランドA・オーダーメイドライン</span></button>
-      <button class="card" data-go="shops"><span class="k">04</span><span class="t">ショップ</span><span class="d">店舗とモールの入口</span></button>
-    </div>
-    <div class="foot">
-      <div><p class="fh2">オンラインショップ</p><a data-go="bridal-engage">婚約</a><a data-go="bridal-marriage">結婚</a><a data-go="line-fashion">ファッションジュエリー</a><a data-go="line-high">ハイジュエリー</a></div>
-      <div><p class="fh2">会社イメージ</p><a data-go="company">S社について</a><a data-go="company">ロケ地・衣装提供</a></div>
-      <div><p class="fh2">ブランド</p><a data-go="brands">ブランド一覧</a></div>
-      <div><p class="fh2">ショップ</p><a data-go="shops">店舗・モール一覧</a><a data-go="reserve">来店予約</a></div>
-    </div>
-  </section>
-
-  <!-- ===== オンラインショップ ===== -->
-  <section class="screen" id="shop-top">
-    <div class="hero corp">
-      <p class="eyebrow">01 ／ ONLINE SHOP</p>
-      <h2>オンラインショップ</h2>
-      <p>第1階層は3ライン。ブランドやデザインは階層に置かず、一覧の絞り込み条件にします。</p>
-    </div>
-    <div class="cards c3">
-      <button class="card" data-go="line-bridal"><span class="k">LINE 01</span><span class="t">ブライダル</span><span class="d">婚約・結婚</span></button>
-      <button class="card" data-go="line-fashion"><span class="k">LINE 02</span><span class="t">ファッションジュエリー</span><span class="d">リングもネックレスも</span></button>
-      <button class="card" data-go="line-high"><span class="k">LINE 03</span><span class="t">ハイジュエリー</span><span class="d">100万円〜。新規事業</span></button>
-    </div>
-    <h3 class="sec">ライン別の絞り込み条件<span>ラインごとに軸が変わります</span></h3>
-    <table class="tbl">
-      <tr><th>ライン</th><th>絞り込み</th></tr>
-      <tr><td>ブライダル（婚約・結婚）</td><td>ブランド・ライン ／ カラット ／ 価格帯 ／ 素材</td></tr>
-      <tr><td>ファッションジュエリー</td><td>ブランド・デザイン ／ 石 ／ 素材 ／ 価格帯</td></tr>
-      <tr><td>ハイジュエリー</td><td>商品開発とあわせて設計</td></tr>
-    </table>
-  </section>
-
-  <!-- ===== ブライダル ===== -->
-  <section class="screen" id="line-bridal">
-    <div class="hero corp">
-      <p class="eyebrow">ONLINE SHOP ／ LINE 01</p>
-      <h2>ブライダル</h2>
-      <p>婚約と結婚。ふたりで決めるための一本を、自社工房でお作りします。</p>
-    </div>
-    <h3 class="sec">用途から選ぶ<span>第2階層</span></h3>
-    <div class="cards c2">
-      <button class="card" data-go="bridal-engage"><span class="k">01</span><span class="t">婚約</span><span class="d">婚約指輪・プロポーズネックレス　152点</span></button>
-      <button class="card" data-go="bridal-marriage"><span class="k">02</span><span class="t">結婚</span><span class="d">結婚指輪・セットリング　396点</span></button>
-    </div>
-    <button class="cta ghost" data-go="reserve">実物を見に行く（来店予約）</button>
-  </section>
-
-  <!-- ===== 婚約 ===== -->
-  <section class="screen" id="bridal-engage">
-    <div class="hero corp">
-      <p class="eyebrow">ブライダル ／ 婚約</p>
-      <h2>婚約</h2>
-      <p>鑑定士が直輸入したダイヤモンドから選べます。</p>
-    </div>
-    <div class="listwrap">
-      <div class="filters">
-        <p class="fh">絞り込み</p>
-        <div class="fgrp"><span class="lbl">ブランド・ライン</span><div class="chips">
-          <button class="chip" aria-pressed="false">S社</button>
-          <button class="chip" aria-pressed="false">オーダーメイドライン</button>
-          <button class="chip" aria-pressed="false">選べるリング</button>
-          <button class="chip" aria-pressed="false">一粒ライン</button>
-        </div></div>
-        <div class="fgrp"><span class="lbl">カラット</span><div class="chips">
-          <button class="chip" aria-pressed="false">〜0.2</button>
-          <button class="chip" aria-pressed="true">0.3〜0.5</button>
-          <button class="chip" aria-pressed="false">0.6〜0.9</button>
-          <button class="chip" aria-pressed="false">1.0〜</button>
-        </div></div>
-        <div class="fgrp"><span class="lbl">価格帯</span><div class="chips">
-          <button class="chip" aria-pressed="false">〜10万</button>
-          <button class="chip" aria-pressed="false">10〜20万</button>
-          <button class="chip" aria-pressed="false">20〜50万</button>
-          <button class="chip" aria-pressed="false">50〜100万</button>
-        </div></div>
-        <div class="fgrp"><span class="lbl">素材</span><div class="chips">
-          <button class="chip" aria-pressed="false">Pt900</button>
-          <button class="chip" aria-pressed="false">K18YG</button>
-          <button class="chip" aria-pressed="false">K18PG</button>
-          <button class="chip" aria-pressed="false">コンビ</button>
-        </div></div>
-      </div>
-      <div>
-        <p class="count">18件　／　カラット：0.3〜0.5</p>
-        <div class="pgrid" id="pgrid-engage"></div>
-      </div>
-    </div>
-    </section>
-
-  <!-- ===== 結婚 ===== -->
-  <section class="screen" id="bridal-marriage">
-    <div class="hero corp">
-      <p class="eyebrow">ブライダル ／ 結婚</p>
-      <h2>結婚</h2>
-      <p>毎日つけるものだから、着け心地から選びます。</p>
-    </div>
-    <div class="listwrap">
-      <div class="filters">
-        <p class="fh">絞り込み</p>
-        <div class="fgrp"><span class="lbl">ブランド・ライン</span><div class="chips">
-          <button class="chip" aria-pressed="false">S社</button>
-          <button class="chip" aria-pressed="false">オーダーメイドライン</button>
-          <button class="chip" aria-pressed="false">選べるリング</button>
-          <button class="chip" aria-pressed="false">ペアライン</button>
-        </div></div>
-        <div class="fgrp"><span class="lbl">カラット</span><div class="chips">
-          <button class="chip" aria-pressed="false">なし（地金）</button>
-          <button class="chip" aria-pressed="false">〜0.1</button>
-          <button class="chip" aria-pressed="false">0.1〜0.3</button>
-        </div></div>
-        <div class="fgrp"><span class="lbl">価格帯</span><div class="chips">
-          <button class="chip" aria-pressed="true">〜10万</button>
-          <button class="chip" aria-pressed="false">10〜20万</button>
-          <button class="chip" aria-pressed="false">20〜50万</button>
-        </div></div>
-        <div class="fgrp"><span class="lbl">素材</span><div class="chips">
-          <button class="chip" aria-pressed="false">Pt900</button>
-          <button class="chip" aria-pressed="false">K18YG</button>
-          <button class="chip" aria-pressed="false">K18PG</button>
-          <button class="chip" aria-pressed="false">コンビ</button>
-        </div></div>
-      </div>
-      <div>
-        <p class="count">24件　／　価格帯：〜10万</p>
-        <div class="pgrid" id="pgrid-marriage"></div>
-      </div>
-    </div>
-    </section>
-
-  <!-- ===== ブライダル詳細 ===== -->
-  <section class="screen" id="detail-bridal">
-    <div class="detail">
-      <div><div class="ph"><svg width="90" height="90" viewBox="0 0 90 90"><circle cx="45" cy="55" r="26" fill="none" stroke="#7B7070" stroke-width="3"/><path d="M38 30 L45 16 L52 30 L45 38 Z" fill="none" stroke="#7B7070" stroke-width="2.5"/></svg></div></div>
-      <div>
-        <p style="font-size:11px;letter-spacing:.12em;color:var(--muted);margin:0 0 6px">ブライダル ／ 婚約</p>
-        <h2 style="margin:0 0 4px;font-size:21px">エンゲージリング 0.3ct ハートシェイプ</h2>
-        <p class="price">¥180,000 <span style="font-size:12px;color:var(--muted);font-weight:400">税込</span></p>
-        <ul class="spec">
-          <li><span class="sk">ライン</span><span>ブライダル ＞ 婚約</span></li>
-          <li><span class="sk">ブランド</span><span>S社</span></li>
-          <li><span class="sk">カラット</span><span>0.30ct</span></li>
-          <li><span class="sk">価格帯</span><span>10〜20万</span></li>
-          <li><span class="sk">素材</span><span>プラチナ900</span></li>
-        </ul>
-        <button class="cta">カートに入れる</button>
-        <button class="cta ghost" data-go="reserve" style="margin-left:8px">店舗で見る</button>
-      </div>
-    </div>
-    </section>
-
-  <!-- ===== ファッション ===== -->
-  <section class="screen" id="line-fashion">
-    <div class="hero corp">
-      <p class="eyebrow">ONLINE SHOP ／ LINE 02</p>
-      <h2>ファッションジュエリー</h2>
-      <p>毎日のための、小さな一粒。リングもネックレスもここにあります。</p>
-    </div>
-    <div class="listwrap">
-      <div class="filters">
-        <p class="fh">絞り込み</p>
-        <div class="fgrp"><span class="lbl">アイテム<em>追加提案</em></span><div class="chips">
-          <button class="chip" aria-pressed="true">ネックレス</button>
-          <button class="chip" aria-pressed="false">リング</button>
-          <button class="chip" aria-pressed="false">ピアス</button>
-          <button class="chip" aria-pressed="false">ブレスレット</button>
-        </div></div>
-        <div class="fgrp"><span class="lbl">ブランド・デザイン</span><div class="chips">
-          <button class="chip" aria-pressed="false">ブランドA</button>
-          <button class="chip" aria-pressed="false">カラーストーン</button>
-          <button class="chip" aria-pressed="false">シルバー</button>
-          <button class="chip" aria-pressed="false">誕生石</button>
-        </div></div>
-        <div class="fgrp"><span class="lbl">石</span><div class="chips">
-          <button class="chip" aria-pressed="true">ダイヤモンド</button>
-          <button class="chip" aria-pressed="false">パール</button>
-          <button class="chip" aria-pressed="false">カラーストーン</button>
-          <button class="chip" aria-pressed="false">石なし</button>
-        </div></div>
-        <div class="fgrp"><span class="lbl">素材</span><div class="chips">
-          <button class="chip" aria-pressed="false">K10</button>
-          <button class="chip" aria-pressed="false">K18</button>
-          <button class="chip" aria-pressed="false">Pt900</button>
-          <button class="chip" aria-pressed="false">SV925</button>
-        </div></div>
-        <div class="fgrp"><span class="lbl">価格帯</span><div class="chips">
-          <button class="chip" aria-pressed="false">〜3万</button>
-          <button class="chip" aria-pressed="false">3〜6万</button>
-          <button class="chip" aria-pressed="false">6〜10万</button>
-          <button class="chip" aria-pressed="false">10万〜</button>
-        </div></div>
-      </div>
-      <div>
-        <p class="count">32件　／　アイテム：ネックレス　石：ダイヤモンド</p>
-        <div class="pgrid" id="pgrid-fashion"></div>
-      </div>
-    </div>
-    </section>
-
-  <!-- ===== ファッション詳細 ===== -->
-  <section class="screen" id="detail-fashion">
-    <div class="detail">
-      <div><div class="ph"><svg width="90" height="90" viewBox="0 0 90 90"><path d="M20 22 C30 56 60 56 70 22" fill="none" stroke="#7B7070" stroke-width="2.5"/><circle cx="45" cy="58" r="7" fill="none" stroke="#7B7070" stroke-width="2.5"/></svg></div></div>
-      <div>
-        <p style="font-size:11px;letter-spacing:.12em;color:var(--muted);margin:0 0 6px">ファッションジュエリー</p>
-        <h2 style="margin:0 0 4px;font-size:21px">K10 ダイヤモンド 0.1ct 覆輪ネックレス</h2>
-        <p class="price">¥33,000 <span style="font-size:12px;color:var(--muted);font-weight:400">税込</span></p>
-        <ul class="spec">
-          <li><span class="sk">ライン</span><span>ファッションジュエリー</span></li>
-          <li><span class="sk">ブランド</span><span>ブランドA</span></li>
-          <li><span class="sk">石</span><span>ダイヤモンド 0.10ct</span></li>
-          <li><span class="sk">素材</span><span>K10 イエローゴールド</span></li>
-          <li><span class="sk">価格帯</span><span>〜3万</span></li>
-        </ul>
-        <button class="cta">カートに入れる</button>
-        <button class="cta ghost" data-go="reserve" style="margin-left:8px">店舗で見る</button>
-      </div>
-    </div>
-    </section>
-
-  <!-- ===== ハイジュエリー ===== -->
-  <section class="screen" id="line-high">
-    <div class="hero hi">
-      <p class="eyebrow">ONLINE SHOP ／ LINE 03</p>
-      <h2>ハイジュエリー<span class="pill">新規事業・商品開発中</span></h2>
-      <p>100万円以上、富裕層向け。金や大粒ダイヤモンドを使った、資産性のあるジュエリーを想定しています。</p>
-    </div>
-    <h3 class="sec">事業としての位置づけ</h3>
-    <table class="tbl">
-      <tr><th>項目</th><th>想定</th></tr>
-      <tr><td>価格帯</td><td>100万円以上</td></tr>
-      <tr><td>顧客</td><td>富裕層。既存のブライダル顧客のリピートも含む</td></tr>
-      <tr><td>商材</td><td>金、大粒ダイヤモンド、ファンシーカラー、一点物、フルオーダー</td></tr>
-      <tr><td>販売チャネル</td><td>店舗中心。外部モールには出さない</td></tr>
-      <tr><td>接客</td><td>予約制の個別対応を想定</td></tr>
-    </table>
-    <h3 class="sec">想定するコレクション<span>いずれも構想段階のダミーです</span></h3>
-    <div class="cards c2">
-      <div class="card flat dim"><span class="k">GOLD</span><span class="t">金のジュエリー</span><span class="d">資産性を持つ地金デザイン</span></div>
-      <div class="card flat dim"><span class="k">STONE</span><span class="t">大粒ダイヤモンド</span><span class="d">1カラット以上。鑑定書付き</span></div>
-      <div class="card flat dim"><span class="k">COLOR</span><span class="t">ファンシーカラーダイヤモンド</span><span class="d">ピンク・イエロー・ブルー</span></div>
-      <div class="card flat dim"><span class="k">ORDER</span><span class="t">フルオーダー</span><span class="d">石の買い付けから設計する</span></div>
-    </div>
-    
-    <button class="cta hi" data-go="reserve">相談する（来店予約）</button>
-  </section>
-
-  <!-- ===== 会社イメージ ===== -->
-  <section class="screen" id="company">
-    <div class="hero corp">
-      <p class="eyebrow">02 ／ ABOUT US</p>
-      <h2>会社イメージ</h2>
-      <p>創業◯◯年。企業としての信頼を伝える区分です。ここに商品は置きません。</p>
-    </div>
-    <div class="cards c2">
-      <div class="card flat"><span class="k">QUALITY</span><span class="t">ダイヤモンドの直輸入</span><span class="d">GIA認定鑑定士が直接買い付け</span></div>
-      <div class="card flat"><span class="k">CRAFTSMANSHIP</span><span class="t">自社工房</span><span class="d">熟練の職人が手作業で製作</span></div>
-      <div class="card flat"><span class="k">PRICE</span><span class="t">製造直販</span><span class="d">卸を介さない価格</span></div>
-      <div class="card flat"><span class="k">MEDIA</span><span class="t">ロケ地・衣装提供</span><span class="d">ドラマ・映画への協力</span></div>
-    </div>
-    <h3 class="sec">会社情報</h3>
-    <div class="cards c3">
-      <div class="card flat"><span class="t">会社概要</span><span class="d">株式会社◯◯</span></div>
-      <div class="card flat"><span class="t">沿革</span><span class="d">創業から現在まで</span></div>
-      <div class="card flat"><span class="t">採用情報</span><span class="d">募集職種</span></div>
-    </div>
-    <button class="cta ghost" data-go="reserve">来店予約</button>
-  </section>
-
-  <!-- ===== ブランド ===== -->
-  <section class="screen" id="brands">
-    <div class="hero corp">
-      <p class="eyebrow">03 ／ BRAND</p>
-      <h2>ブランド</h2>
-      <p>それぞれのブランドが、誰のために、何を大切にしてつくられているか。</p>
-    </div>
-
-    <div class="brandblk">
-      <p class="bcat">BRIDAL ／ HIGH JEWELRY</p>
-      <p class="bname">S社</p>
-      <p class="btag">一生に一度を、一生ものに。</p>
-      <p class="bbody">創業◯◯年。石を選ぶところから仕上げまで、すべて自社の工房で行っています。機械では出せないわずかな丸みや、指に触れたときの収まり。そうした目に見えない部分にこそ、職人が時間をかけています。<br>つくって終わりではありません。サイズが変わっても、傷がついても、直しながら使い続けていただく。何十年も先にお預かりすることを前提に、ひとつずつお作りしています。</p>
-      <div class="bvals"><span>職人の手仕事</span><span>自社工房での一貫製造</span><span>一生つきあう</span></div>
-      <button class="blink" data-go="line-bridal">このブランドの商品を見る</button>
-    </div>
-
-    <div class="brandblk">
-      <p class="bcat">FASHION JEWELRY</p>
-      <p class="bname">ブランドA</p>
-      <p class="btag">なんでもない日の、小さな自信に。</p>
-      <p class="bbody">特別な日のためのジュエリーは、着ける日を選びます。このブランドがつくっているのは、その反対のもの。仕事に行く朝も、近所に出かける昼も、そのまま着けていられるジュエリーです。<br>手に取りやすい価格にしていますが、素材と仕立ては変えていません。自分のために買う人が、誰にも説明せずに満足できること。それを基準にしています。</p>
-      <div class="bvals"><span>日常に寄り添う</span><span>手が届く上質</span><span>自分への贈り物</span></div>
-      <button class="blink" data-go="line-fashion">このブランドの商品を見る</button>
-    </div>
-
-    <div class="brandblk">
-      <p class="bcat">ORDER MADE</p>
-      <p class="bname">オーダーメイドライン</p>
-      <p class="btag">ふたりの話から、はじめる。</p>
-      <p class="bbody">できあがったものから選ぶのではなく、どこで出会って、どんな時間を過ごしてきたかをうかがうところから始まります。そこから、かたち、素材、石、そして内側に刻む言葉を決めていきます。<br>決めていく時間そのものが、あとから思い出になる。だから急がせません。何度でも相談しながら、ふたりだけの一本にしていきます。</p>
-      <div class="bvals"><span>対話からつくる</span><span>世界にひとつ</span><span>つくる時間も贈り物</span></div>
-      <button class="blink" data-go="bridal-engage">このラインの商品を見る</button>
-    </div>
-
-    </section>
-
-  <!-- ===== ショップ ===== -->
-  <section class="screen" id="shops">
-    <div class="hero corp">
-      <p class="eyebrow">04 ／ SHOP</p>
-      <h2>ショップ</h2>
-      <p>実店舗と外部モールの入口をここに集約します。</p>
-    </div>
-    <h3 class="sec">実店舗</h3>
-    <div class="cards c2">
-      <button class="card" data-go="reserve"><span class="k">STORE</span><span class="t">S社 東京本店</span><span class="d">東京都中央区◯◯町◯-◯　03-◯◯◯◯-◯◯◯◯</span></button>
-      <button class="card" data-go="reserve"><span class="k">RESERVATION</span><span class="t">来店予約</span><span class="d">交通費キャッシュバック特典</span></button>
-    </div>
-    <h3 class="sec">外部モール<span>扱うのはファッションジュエリーの一部のみ</span></h3>
-    <div class="cards c4">
-      <button class="card mall" data-go="malls"><span class="t">楽天市場店</span><span class="d">買い切り商品</span></button>
-      <button class="card mall" data-go="malls"><span class="t">Amazon店</span><span class="d">買い切り商品</span></button>
-      <button class="card mall" data-go="malls"><span class="t">Yahoo!店</span><span class="d">買い切り商品</span></button>
-      <button class="card mall" data-go="malls"><span class="t">ZOZOTOWN店</span><span class="d">検討中</span></button>
-    </div>
-  </section>
-
-  <!-- ===== 来店予約 ===== -->
-  <section class="screen" id="reserve">
-    <div class="hero corp">
-      <p class="eyebrow">SHOP ／ RESERVATION</p>
-      <h2>来店予約</h2>
-      <p>東京都中央区◯◯町◯-◯　S社　03-◯◯◯◯-◯◯◯◯</p>
-    </div>
-    <div class="form">
-      <div class="field"><label>お名前</label><div class="box"></div></div>
-      <div class="field"><label>ご希望日時</label><div class="box"></div></div>
-      <div class="field"><label>ご相談内容</label><div class="box">ブライダル ／ ファッションジュエリー ／ ハイジュエリー</div></div>
-      <div class="field"><label>ご要望</label><div class="box tall"></div></div>
-      <button class="cta">予約する</button>
-    </div>
-    </section>
-
-  <!-- ===== モール ===== -->
-  <section class="screen" id="malls">
-    <div class="hero mall">
-      <p class="eyebrow">EXTERNAL</p>
-      <h2>モール店</h2>
-      <p>低単価の買い切り商品のみを置きます。来店誘導とブランド訴求はここでは行いません。</p>
-    </div>
-    <div class="cards c2">
-      <div class="card flat"><span class="k">MALL</span><span class="t">楽天市場店</span><span class="d">定番の低単価品。終売品はページ削除ではなく後継品への差し替えを優先</span></div>
-      <div class="card flat"><span class="k">MALL</span><span class="t">Amazon店</span><span class="d">型番管理しやすい定番品</span></div>
-      <div class="card flat"><span class="k">MALL</span><span class="t">Yahoo!ショッピング店</span><span class="d">コーポレートの画像・文章の直参照を解消</span></div>
-      <div class="card flat"><span class="k">検討中</span><span class="t">ZOZOTOWN店</span><span class="d">ファッションジュエリーのみを想定</span></div>
-    </div>
-    <button class="cta ghost" data-go="shops">ショップに戻る</button>
-  </section>
-
+  <h3 class="sec">お問い合わせ</h3>
+  <div class="contact">
+    <button class="cbtn">
+      <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><rect x="5" y="11" width="38" height="26" rx="3" fill="none" stroke="#9B2B33" stroke-width="3"/><path d="M6 13 L24 27 L42 13" fill="none" stroke="#9B2B33" stroke-width="3" stroke-linejoin="round"/></svg>
+      <span class="cl">メール</span><span class="cv">24時間受付</span>
+    </button>
+    <button class="cbtn">
+      <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path d="M13 6 C9 6 6 9 6 13 C6 29 19 42 35 42 C39 42 42 39 42 35 L42 31 L32 27 L28 33 C22 30 18 26 15 20 L21 16 L17 6 Z" fill="none" stroke="#9B2B33" stroke-width="3" stroke-linejoin="round"/></svg>
+      <span class="cl">電話</span><span class="cv">03-◯◯◯◯-◯◯◯◯</span>
+    </button>
+    <button class="cbtn">
+      <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path d="M24 7 C13 7 4 14 4 23 C4 30 10 36 18 38 L17 44 L25 38 C36 37 44 30 44 23 C44 14 35 7 24 7 Z" fill="none" stroke="#9B2B33" stroke-width="3" stroke-linejoin="round"/><path d="M15 19 L15 28 L21 28 M27 28 L27 19 M32 28 L32 19 L38 28 L38 19" fill="none" stroke="#9B2B33" stroke-width="2.5" stroke-linejoin="round"/></svg>
+      <span class="cl">LINE</span><span class="cv">友だち追加</span>
+    </button>
   </div>
+
+  <h3 class="sec">来店予約</h3>
+  <p style="color:var(--muted);margin:0 0 16px">事前にご予約いただくと、専任のスタッフがご希望に合わせてご用意してお待ちします。</p>
+  <button class="cta" data-go="reserve">来店を予約する</button>
+</section>
+
+<!-- ========== 来店予約 ========== -->
+<section class="screen" id="reserve">
+  <div class="hero">
+    <p class="eyebrow">SHOP ／ RESERVATION</p>
+    <h2>来店予約</h2>
+    <p>東京都中央区◯◯町◯-◯　S社 東京本店　03-◯◯◯◯-◯◯◯◯</p>
+  </div>
+  <div class="form">
+    <div class="field"><label>お名前</label><div class="box"></div></div>
+    <div class="field"><label>ご希望日時</label><div class="box"></div></div>
+    <div class="field"><label>ご相談内容</label><div class="box">ブライダル ／ ファッションジュエリー ／ ハイジュエリー</div></div>
+    <div class="field"><label>ご要望</label><div class="box tall"></div></div>
+    <button class="cta">予約する</button>
+  </div>
+</section>
+
 </main>
-</div>
 
 <script>
 var PAGES = {
-  'sitemap':        {grp:'corp', sect:null,      line:null,      sub:null,       crumb:'全体構成'},
-  'corp-top':       {grp:'corp', sect:null,      line:null,      sub:null,       crumb:'コーポレート トップ'},
-  'shop-top':       {grp:'corp', sect:'shop',    line:null,      sub:null,       crumb:'トップ ＞ <b>オンラインショップ</b>'},
-  'line-bridal':    {grp:'corp', sect:'shop',    line:'bridal',  sub:null,       crumb:'オンラインショップ ＞ <b>ブライダル</b>'},
-  'bridal-engage':  {grp:'corp', sect:'shop',    line:'bridal',  sub:'engage',   crumb:'ブライダル ＞ <b>婚約</b>'},
-  'bridal-marriage':{grp:'corp', sect:'shop',    line:'bridal',  sub:'marriage', crumb:'ブライダル ＞ <b>結婚</b>'},
-  'detail-bridal':  {grp:'corp', sect:'shop',    line:'bridal',  sub:'engage',   crumb:'ブライダル ＞ 婚約 ＞ <b>商品詳細</b>'},
-  'line-fashion':   {grp:'corp', sect:'shop',    line:'fashion', sub:null,       crumb:'オンラインショップ ＞ <b>ファッションジュエリー</b>'},
-  'detail-fashion': {grp:'corp', sect:'shop',    line:'fashion', sub:null,       crumb:'ファッションジュエリー ＞ <b>商品詳細</b>'},
-  'line-high':      {grp:'corp', sect:'shop',    line:'high',    sub:null,       crumb:'オンラインショップ ＞ <b>ハイジュエリー</b>'},
-  'company':        {grp:'corp', sect:'company', line:null,      sub:null,       crumb:'トップ ＞ <b>会社イメージ</b>'},
-  'brands':         {grp:'corp', sect:'brand',   line:null,      sub:null,       crumb:'トップ ＞ <b>ブランド</b>'},
-  'shops':          {grp:'corp', sect:'shops',   line:null,      sub:null,       crumb:'トップ ＞ <b>ショップ</b>'},
-  'reserve':        {grp:'corp', sect:'shops',   line:null,      sub:null,       crumb:'ショップ ＞ <b>来店予約</b>'},
-  'malls':          {grp:'mall', sect:null,      line:null,      sub:null,       crumb:'ショップ ＞ <b>外部モール</b>'}
+  'sitemap':        {sect:null,      line:null,      sub:null,       crumb:'全体構成'},
+  'corp-top':       {sect:null,      line:null,      sub:null,       crumb:'トップ'},
+  'shop-top':       {sect:'shop',    line:null,      sub:null,       crumb:'トップ ＞ <b>オンラインショップ</b>'},
+  'line-bridal':    {sect:'shop',    line:'bridal',  sub:null,       crumb:'オンラインショップ ＞ <b>ブライダル</b>'},
+  'bridal-engage':  {sect:'shop',    line:'bridal',  sub:'engage',   crumb:'ブライダル ＞ <b>婚約</b>'},
+  'bridal-marriage':{sect:'shop',    line:'bridal',  sub:'marriage', crumb:'ブライダル ＞ <b>結婚</b>'},
+  'detail-bridal':  {sect:'shop',    line:'bridal',  sub:'engage',   crumb:'ブライダル ＞ 婚約 ＞ <b>商品詳細</b>'},
+  'line-fashion':   {sect:'shop',    line:'fashion', sub:null,       crumb:'オンラインショップ ＞ <b>ファッションジュエリー</b>'},
+  'detail-fashion': {sect:'shop',    line:'fashion', sub:null,       crumb:'ファッションジュエリー ＞ <b>商品詳細</b>'},
+  'line-high':      {sect:'shop',    line:'high',    sub:null,       crumb:'オンラインショップ ＞ <b>ハイジュエリー</b>'},
+  'detail-high':    {sect:'shop',    line:'high',    sub:null,       crumb:'ハイジュエリー ＞ <b>商品詳細</b>'},
+  'company':        {sect:'company', line:null,      sub:null,       crumb:'トップ ＞ <b>会社イメージ</b>'},
+  'brands':         {sect:'brand',   line:null,      sub:null,       crumb:'トップ ＞ <b>ブランド</b>'},
+  'shops':          {sect:'shops',   line:null,      sub:null,       crumb:'トップ ＞ <b>ショップ</b>'},
+  'reserve':        {sect:'shops',   line:null,      sub:null,       crumb:'ショップ ＞ <b>来店予約</b>'}
 };
-var LABEL = {corp:'コーポレート', mall:'外部モール'};
 var hist = ['sitemap'];
 
-var ringSvg = '<svg width="52" height="52" viewBox="0 0 90 90"><circle cx="45" cy="55" r="24" fill="none" stroke="#7B7070" stroke-width="3"/><path d="M38 32 L45 18 L52 32 L45 40 Z" fill="none" stroke="#7B7070" stroke-width="2.5"/></svg>';
-var bandSvg = '<svg width="52" height="52" viewBox="0 0 90 90"><ellipse cx="45" cy="45" rx="25" ry="27" fill="none" stroke="#7B7070" stroke-width="3"/><ellipse cx="45" cy="45" rx="18" ry="20" fill="none" stroke="#7B7070" stroke-width="1.5"/></svg>';
-var neckSvg = '<svg width="52" height="52" viewBox="0 0 90 90"><path d="M20 22 C30 56 60 56 70 22" fill="none" stroke="#7B7070" stroke-width="2.5"/><circle cx="45" cy="58" r="7" fill="none" stroke="#7B7070" stroke-width="2.5"/></svg>';
+var svgRing  = '<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><circle cx="60" cy="76" r="26" fill="none" stroke="#9B2B33" stroke-width="3"/><path d="M50 40 L60 18 L70 40 L60 52 Z" fill="none" stroke="#9B2B33" stroke-width="3" stroke-linejoin="round"/></svg>';
+var svgBand  = '<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><ellipse cx="60" cy="60" rx="28" ry="32" fill="none" stroke="#6B1C24" stroke-width="3"/><ellipse cx="60" cy="60" rx="20" ry="24" fill="none" stroke="#6B1C24" stroke-width="1.5"/></svg>';
+var svgNeck  = '<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><path d="M22 26 C34 74 86 74 98 26" fill="none" stroke="#9B2B33" stroke-width="3"/><circle cx="60" cy="80" r="12" fill="none" stroke="#9B2B33" stroke-width="3"/></svg>';
+var svgGold  = '<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><path d="M26 78 L34 56 L86 56 L94 78 Z" fill="none" stroke="#6B1C24" stroke-width="3" stroke-linejoin="round"/><path d="M40 56 L46 38 L74 38 L80 56" fill="none" stroke="#6B1C24" stroke-width="3" stroke-linejoin="round"/></svg>';
 
 var engageItems = [
-  ['エンゲージリング 0.3ct 一粒','¥148,000'],
-  ['エンゲージリング 0.3ct ハート','¥180,000'],
-  ['エンゲージリング 0.3ct ヘイロー','¥270,000'],
-  ['エンゲージリング 0.4ct エタニティ','¥300,000'],
-  ['エンゲージリング 0.5ct エメラルド','¥350,000'],
-  ['エンゲージリング 0.5ct ヘイロー','¥400,000']
+  ['エンゲージリング 0.3ct 一粒','¥148,000',svgRing,'t-a'],
+  ['エンゲージリング 0.3ct ハート','¥180,000',svgRing,'t-a'],
+  ['エンゲージリング 0.3ct ヘイロー','¥270,000',svgRing,'t-c'],
+  ['エンゲージリング 0.4ct エタニティ','¥300,000',svgRing,'t-a'],
+  ['エンゲージリング 0.5ct エメラルド','¥350,000',svgRing,'t-c'],
+  ['エンゲージリング 0.5ct ヘイロー','¥400,000',svgRing,'t-a']
 ];
 var marriageItems = [
-  ['マリッジリング ストレート Pt900','¥69,800'],
-  ['マリッジリング ウェーブ Pt900','¥65,800'],
-  ['マリッジリング ダイヤ入り K18','¥79,800'],
-  ['マリッジリング コンビ','¥88,000'],
-  ['マリッジリング つや消し Pt900','¥72,000'],
-  ['マリッジリング ミル打ち K18PG','¥76,000']
+  ['マリッジリング ストレート Pt900','¥69,800',svgBand,'t-b'],
+  ['マリッジリング ウェーブ Pt900','¥65,800',svgBand,'t-b'],
+  ['マリッジリング ダイヤ入り K18','¥79,800',svgBand,'t-d'],
+  ['マリッジリング コンビ','¥88,000',svgBand,'t-b'],
+  ['マリッジリング つや消し Pt900','¥72,000',svgBand,'t-d'],
+  ['マリッジリング ミル打ち K18PG','¥76,000',svgBand,'t-b']
 ];
 var fashionItems = [
-  ['K10 ダイヤモンド 0.1ct 覆輪','¥33,000'],
-  ['K10 ダイヤモンド 6本爪','¥33,000'],
-  ['K10 プリンセスカット 覆輪','¥49,000'],
-  ['K10 ダイヤモンド 5pc 覆輪','¥88,000'],
-  ['K18 マーキス ライン','¥170,000'],
-  ['SV925 一粒 ダイヤモンド','¥20,000']
+  ['K10 ダイヤモンド 0.1ct 覆輪','¥33,000',svgNeck,'t-c'],
+  ['K10 ダイヤモンド 6本爪','¥33,000',svgNeck,'t-c'],
+  ['K10 プリンセスカット 覆輪','¥49,000',svgNeck,'t-a'],
+  ['K10 ダイヤモンド 5pc 覆輪','¥88,000',svgNeck,'t-c'],
+  ['K18 マーキス ライン','¥170,000',svgNeck,'t-a'],
+  ['SV925 一粒 ダイヤモンド','¥20,000',svgNeck,'t-d']
+];
+var highItems = [
+  ['K24 純金 ゴールドバー ペンダント 20g','¥1,480,000',svgGold,'t-b'],
+  ['K24 純金 コインペンダント 1/2oz','¥2,180,000',svgGold,'t-b'],
+  ['K18 ゴールド チェーンネックレス 50g','¥1,280,000',svgGold,'t-d'],
+  ['K24 純金 バングル 30g','¥2,460,000',svgGold,'t-b'],
+  ['K18 ゴールド 印台リング','¥1,120,000',svgGold,'t-d'],
+  ['K24 純金 干支ペンダント','¥1,680,000',svgGold,'t-b']
 ];
 
-function fillGrid(id, items, svg, target){
+function fillGrid(id, items, target){
   var el = document.getElementById(id), html = '', i;
   for (i=0;i<items.length;i++){
-    html += '<button class="prod" data-go="'+target+'"><span class="ph">'+svg+'</span>'
-         +  '<span class="pn">'+items[i][0]+'</span><span class="pp">'+items[i][1]+'</span></button>';
+    html += '<button class="prod" data-go="'+target+'">'
+         +  '<span class="imgph '+items[i][3]+'">'+items[i][2]+'</span>'
+         +  '<span class="cbody"><span class="pn">'+items[i][0]+'</span>'
+         +  '<span class="pp">'+items[i][1]+'</span></span></button>';
   }
   el.innerHTML = html;
 }
-fillGrid('pgrid-engage', engageItems, ringSvg, 'detail-bridal');
-fillGrid('pgrid-marriage', marriageItems, bandSvg, 'detail-bridal');
-fillGrid('pgrid-fashion', fashionItems, neckSvg, 'detail-fashion');
+fillGrid('pgrid-engage', engageItems, 'detail-bridal');
+fillGrid('pgrid-marriage', marriageItems, 'detail-bridal');
+fillGrid('pgrid-fashion', fashionItems, 'detail-fashion');
+fillGrid('pgrid-high', highItems, 'detail-high');
+
+function closeDrawer(){
+  document.getElementById('drawer').classList.remove('on');
+  document.getElementById('scrim').classList.remove('on');
+  document.getElementById('hamb').setAttribute('aria-expanded','false');
+}
+function openDrawer(){
+  document.getElementById('drawer').classList.add('on');
+  document.getElementById('scrim').classList.add('on');
+  document.getElementById('hamb').setAttribute('aria-expanded','true');
+}
 
 function show(id, record){
   var p = PAGES[id], i;
@@ -731,16 +874,11 @@ function show(id, record){
   for (i=0;i<all.length;i++) all[i].classList.remove('on');
   document.getElementById(id).classList.add('on');
 
-  var badge = document.getElementById('badge');
-  badge.className = 'badge b-' + p.grp;
-  badge.textContent = LABEL[p.grp];
   document.getElementById('crumb').innerHTML = p.crumb;
-
-  document.getElementById('gnav-corp').classList.toggle('on', p.grp === 'corp');
   document.getElementById('subnav-line').classList.toggle('on', p.sect === 'shop');
   document.getElementById('subnav-bridal').classList.toggle('on', p.line === 'bridal');
 
-  var gb = document.querySelectorAll('.gnav button');
+  var gb = document.querySelectorAll('#gnav button');
   for (i=0;i<gb.length;i++){
     gb[i].setAttribute('aria-current', (p.sect && gb[i].getAttribute('data-sect') === p.sect) ? 'true' : 'false');
   }
@@ -757,6 +895,7 @@ function show(id, record){
     rb[i].setAttribute('aria-current', rb[i].getAttribute('data-go') === id ? 'true' : 'false');
   }
   if (record !== false) hist.push(id);
+  closeDrawer();
   window.scrollTo(0,0);
 }
 
@@ -770,11 +909,19 @@ document.addEventListener('click', function(e){
   }
 });
 
+document.getElementById('hamb').addEventListener('click', function(){
+  var d = document.getElementById('drawer');
+  if (d.classList.contains('on')) closeDrawer(); else openDrawer();
+});
+document.getElementById('dclose').addEventListener('click', closeDrawer);
+document.getElementById('scrim').addEventListener('click', closeDrawer);
+document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeDrawer(); });
+
 document.getElementById('back').addEventListener('click', function(){
   if (hist.length > 1){ hist.pop(); show(hist[hist.length-1], false); }
 });
 
-show('sitemap', false);
+show('corp-top', false);
 </script>
 </body>
 </html>
