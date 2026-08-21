@@ -239,6 +239,30 @@ h3.sec{font-size:16pt;letter-spacing:.05em;margin:34px 0 16px;font-weight:700}
 .mapcol li.ind{padding-left:30px}
 .mapcol li.ind::before{left:16px}
 
+/* ---------- カート ---------- */
+.cartbtn{position:relative;flex:none;background:none;border:1px solid var(--line);border-radius:var(--radius);padding:8px 16px 8px 40px;font-size:14pt;cursor:pointer;color:var(--muted)}
+.cartbtn:hover{border-color:var(--accent);color:var(--accent)}
+.cartbtn svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);width:20px;height:20px}
+.cartbtn .n{background:var(--accent);color:#fff;border-radius:20px;font-size:10pt;padding:1px 7px;margin-left:6px}
+.cartrow{display:grid;grid-template-columns:120px 1fr auto;gap:20px;align-items:center;border-bottom:1px solid var(--line-soft);padding:18px 0}
+.cartrow .cn{font-size:14pt;font-weight:700;display:block;margin-bottom:4px}
+.cartrow .cm{font-size:12pt;color:var(--muted);display:block}
+.cartrow .cp{font-size:14pt;font-weight:700;white-space:nowrap;text-align:right}
+.qty{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:var(--radius);margin-top:8px}
+.qty button{background:none;border:0;padding:4px 12px;font-size:14pt;cursor:pointer;color:var(--muted)}
+.qty span{padding:4px 14px;font-size:12pt;border-left:1px solid var(--line);border-right:1px solid var(--line)}
+.del{background:none;border:0;font-size:12pt;color:var(--muted);cursor:pointer;text-decoration:underline;text-underline-offset:3px;margin-top:10px;padding:0}
+.sum{border:1px solid var(--line);border-radius:var(--radius);padding:22px;max-width:420px;margin:26px 0 0 auto}
+.sum dl{margin:0;font-size:14pt}
+.sum .r{display:flex;justify-content:space-between;padding:7px 0}
+.sum .r.total{border-top:1px solid var(--line);margin-top:10px;padding-top:14px;font-size:17pt;font-weight:700}
+/* ---------- メンテナンス ---------- */
+.flow{counter-reset:st}
+.flowrow{display:grid;grid-template-columns:56px 1fr;gap:18px;align-items:start;padding:14px 0;border-bottom:1px solid var(--line-soft)}
+.flowrow .no{width:44px;height:44px;border-radius:50%;border:1px solid var(--accent);color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:14pt;font-weight:700}
+.flowrow .ft{font-size:14pt;font-weight:700;display:block;margin-bottom:2px}
+.flowrow .fd{font-size:12pt;color:var(--muted);display:block}
+
 /* ---------- レスポンシブ ---------- */
 @media(max-width:1000px){
   .pgrid{grid-template-columns:repeat(2,1fr)}
@@ -256,6 +280,9 @@ h3.sec{font-size:16pt;letter-spacing:.05em;margin:34px 0 16px;font-weight:700}
   .subnav button{white-space:nowrap}
   .crumb{display:none}
   .spec .sk{width:120px}
+  .cartrow{grid-template-columns:84px 1fr;gap:14px}
+  .cartrow .cp{grid-column:2;text-align:left}
+  .sum{margin-left:0;max-width:none}
   .tbl th,.tbl td{padding:10px 12px}
 }
 @media(max-width:560px){
@@ -276,12 +303,14 @@ h3.sec{font-size:16pt;letter-spacing:.05em;margin:34px 0 16px;font-weight:700}
     <button class="backbtn" id="back">← 戻る</button>
     <span class="crumb" id="crumb"></span>
     <button class="lang">JP / EN</button>
+    <button class="cartbtn" data-go="cart" aria-label="買い物かご"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M2 3h3l2.6 11.2a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.5L21 7H6" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/><circle cx="10" cy="20" r="1.6" fill="currentColor"/><circle cx="18" cy="20" r="1.6" fill="currentColor"/></svg>かご<span class="n">2</span></button>
   </div>
   <nav class="gnav" id="gnav">
     <button data-go="shop-top" data-sect="shop">オンラインショップ</button>
     <button data-go="company" data-sect="company">会社イメージ</button>
     <button data-go="brands" data-sect="brand">ブランド</button>
     <button data-go="shops" data-sect="shops">ショップ</button>
+    <button data-go="maintenance" data-sect="maint">メンテナンス</button>
   </nav>
   <nav class="subnav" id="subnav-line">
     <button data-go="line-bridal" data-line="bridal">ブライダル</button>
@@ -314,6 +343,8 @@ h3.sec{font-size:16pt;letter-spacing:.05em;margin:34px 0 16px;font-weight:700}
     <li class="lv2"><button class="lv2" data-go="brands">ブランド</button></li>
     <li class="lv2"><button class="lv2" data-go="shops">ショップ</button></li>
     <li class="lv3"><button class="lv3" data-go="reserve">来店予約</button></li>
+    <li class="lv2"><button class="lv2" data-go="maintenance">メンテナンス</button></li>
+    <li class="lv2"><button class="lv2" data-go="cart">買い物かご</button></li>
     <li><button data-go="sitemap">全体構成を見る</button></li>
   </ul>
 </nav>
@@ -341,6 +372,10 @@ h3.sec{font-size:16pt;letter-spacing:.05em;margin:34px 0 16px;font-weight:700}
       <li class="ind">S社 ／ ブランドA ／ オーダーメイドライン</li>
       <li class="hd">ショップ</li>
       <li class="ind">店舗情報・お問い合わせ・来店予約</li>
+      <li class="hd">メンテナンス</li>
+      <li class="ind">サイズ変更・清掃・作り直し</li>
+      <li class="hd">買い物かご（共通機能）</li>
+      <li class="ind">全ページの右上に常設</li>
     </ul>
   </div>
   <h3 class="sec">3ラインの位置づけ</h3>
@@ -377,12 +412,16 @@ h3.sec{font-size:16pt;letter-spacing:.05em;margin:34px 0 16px;font-weight:700}
       <span class="imgph t-d"><svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><path d="M60 18 A26 26 0 0 1 86 44 C86 64 60 102 60 102 C60 102 34 64 34 44 A26 26 0 0 1 60 18 Z" fill="none" stroke="#6B1C24" stroke-width="3" stroke-linejoin="round"/><circle cx="60" cy="44" r="10" fill="none" stroke="#6B1C24" stroke-width="3"/></svg></span>
       <span class="cbody"><span class="k">04</span><span class="t">ショップ</span><span class="d">店舗・お問い合わせ・来店予約</span></span>
     </button>
+    <button class="card" data-go="maintenance">
+      <span class="imgph t-b"><svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><circle cx="60" cy="62" r="26" fill="none" stroke="#6B1C24" stroke-width="3"/><path d="M60 22 A40 40 0 0 1 96 46" fill="none" stroke="#6B1C24" stroke-width="3" stroke-linecap="round"/><path d="M96 30 L98 48 L80 46" fill="none" stroke="#6B1C24" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/></svg></span>
+      <span class="cbody"><span class="k">05</span><span class="t">メンテナンス</span><span class="d">サイズ変更・清掃・作り直し</span></span>
+    </button>
   </div>
   <div class="foot">
     <div><p class="fh2">オンラインショップ</p><a data-go="bridal-engage">婚約</a><a data-go="bridal-marriage">結婚</a><a data-go="line-fashion">ファッションジュエリー</a><a data-go="line-high">ハイジュエリー</a></div>
     <div><p class="fh2">会社イメージ</p><a data-go="company">S社について</a><a data-go="company">ロケ地・衣装提供</a></div>
     <div><p class="fh2">ブランド</p><a data-go="brands">ブランド一覧</a></div>
-    <div><p class="fh2">ショップ</p><a data-go="shops">店舗情報</a><a data-go="reserve">来店予約</a></div>
+    <div><p class="fh2">ショップ</p><a data-go="shops">店舗情報</a><a data-go="reserve">来店予約</a><a data-go="maintenance">メンテナンス</a></div>
   </div>
 </section>
 
@@ -518,7 +557,7 @@ h3.sec{font-size:16pt;letter-spacing:.05em;margin:34px 0 16px;font-weight:700}
         <li><span class="sk">価格帯</span><span>10〜20万</span></li>
         <li><span class="sk">素材</span><span>プラチナ900</span></li>
       </ul>
-      <button class="cta">カートに入れる</button>
+      <button class="cta" data-go="cart">カートに入れる</button>
       <button class="cta ghost" data-go="reserve">店舗で見る</button>
     </div>
   </div>
@@ -583,7 +622,7 @@ h3.sec{font-size:16pt;letter-spacing:.05em;margin:34px 0 16px;font-weight:700}
         <li><span class="sk">素材</span><span>K10 イエローゴールド</span></li>
         <li><span class="sk">価格帯</span><span>〜3万</span></li>
       </ul>
-      <button class="cta">カートに入れる</button>
+      <button class="cta" data-go="cart">カートに入れる</button>
       <button class="cta ghost" data-go="reserve">店舗で見る</button>
     </div>
   </div>
@@ -781,6 +820,101 @@ h3.sec{font-size:16pt;letter-spacing:.05em;margin:34px 0 16px;font-weight:700}
   </div>
 </section>
 
+
+<!-- ========== メンテナンス ========== -->
+<section class="screen" id="maintenance">
+  <div class="hero">
+    <p class="eyebrow">05 ／ MAINTENANCE</p>
+    <h2>メンテナンス</h2>
+    <p>つくって終わりではありません。指が変わっても、傷がついても、直しながら使い続けていただけます。</p>
+  </div>
+
+  <h3 class="sec">承っている内容</h3>
+  <div class="cards c3">
+    <div class="card flat">
+      <span class="imgph t-a"><svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><circle cx="60" cy="60" r="27" fill="none" stroke="#9B2B33" stroke-width="3"/><path d="M18 60 L34 60 M86 60 L102 60" stroke="#9B2B33" stroke-width="3" stroke-linecap="round"/><path d="M28 52 L18 60 L28 68 M92 52 L102 60 L92 68" fill="none" stroke="#9B2B33" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/></svg></span>
+      <span class="cbody"><span class="k">SIZE</span><span class="t">サイズ変更</span><span class="d">指のサイズが変わったときに、リングの号数をお直しします。デザインによって対応できる範囲が変わります。</span></span>
+    </div>
+    <div class="card flat">
+      <span class="imgph t-c"><svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><circle cx="54" cy="66" r="24" fill="none" stroke="#9B2B33" stroke-width="3"/><path d="M88 20 L91 32 L103 35 L91 38 L88 50 L85 38 L73 35 L85 32 Z" fill="none" stroke="#9B2B33" stroke-width="2.5" stroke-linejoin="round"/><path d="M30 30 L32 37 L39 39 L32 41 L30 48 L28 41 L21 39 L28 37 Z" fill="none" stroke="#9B2B33" stroke-width="2" stroke-linejoin="round"/></svg></span>
+      <span class="cbody"><span class="k">CLEANING</span><span class="t">清掃・仕上げ直し</span><span class="d">日々の使用でついた曇りや細かな傷を、工房で磨き直します。留め石のゆるみもあわせて点検します。</span></span>
+    </div>
+    <div class="card flat">
+      <span class="imgph t-b"><svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><path d="M60 26 A34 34 0 1 1 30 44" fill="none" stroke="#6B1C24" stroke-width="3" stroke-linecap="round"/><path d="M26 28 L29 46 L47 43" fill="none" stroke="#6B1C24" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/><path d="M50 62 L60 46 L70 62 L60 76 Z" fill="none" stroke="#6B1C24" stroke-width="2.5" stroke-linejoin="round"/></svg></span>
+      <span class="cbody"><span class="k">REMAKE</span><span class="t">作り直し</span><span class="d">受け継いだジュエリーや、着けなくなった品を、石を活かして別のかたちにお作りし直します。</span></span>
+    </div>
+  </div>
+
+  <h3 class="sec">料金の目安</h3>
+  <table class="tbl">
+    <tr><th>内容</th><th>料金</th><th>期間の目安</th></tr>
+    <tr><td>サイズ変更（±2号まで）</td><td>3,300円〜</td><td>2〜3週間</td></tr>
+    <tr><td>サイズ変更（±3号以上）</td><td>お見積り</td><td>3〜4週間</td></tr>
+    <tr><td>清掃・仕上げ直し</td><td>当店でお求めの品は無料</td><td>1〜2週間</td></tr>
+    <tr><td>石のとめ直し・点検</td><td>2,200円〜</td><td>2〜3週間</td></tr>
+    <tr><td>作り直し（リフォーム）</td><td>お見積り</td><td>1〜2か月</td></tr>
+  </table>
+  <p style="color:var(--muted);font-size:12pt;margin:12px 0 0">※ 料金・期間はダミーです。デザインや状態によって変わります。</p>
+
+  <h3 class="sec">お預かりから お渡しまで</h3>
+  <div class="flow">
+    <div class="flowrow"><span class="no">1</span><span><span class="ft">ご相談</span><span class="fd">店舗、電話、メール、LINEのいずれでも承ります。写真をお送りいただければ、おおよその目安をお伝えできます。</span></span></div>
+    <div class="flowrow"><span class="no">2</span><span><span class="ft">お見積り</span><span class="fd">現品を拝見して、内容と料金、期間をご案内します。ここでお断りいただいても費用はかかりません。</span></span></div>
+    <div class="flowrow"><span class="no">3</span><span><span class="ft">お預かり</span><span class="fd">お預かり証をお渡しします。ご来店が難しい場合は配送でも承ります。</span></span></div>
+    <div class="flowrow"><span class="no">4</span><span><span class="ft">工房での作業</span><span class="fd">自社の工房で職人が作業します。作り直しの場合は、途中で一度デザインをご確認いただきます。</span></span></div>
+    <div class="flowrow"><span class="no">5</span><span><span class="ft">お渡し</span><span class="fd">仕上がりをご確認いただいてお渡しします。清掃と点検をあわせて行っています。</span></span></div>
+  </div>
+
+  <div style="margin-top:30px">
+    <button class="cta" data-go="reserve">メンテナンスを相談する（来店予約）</button>
+    <button class="cta ghost" data-go="shops">お問い合わせ先を見る</button>
+  </div>
+</section>
+
+<!-- ========== 買い物かご ========== -->
+<section class="screen" id="cart">
+  <div class="hero">
+    <p class="eyebrow">CART</p>
+    <h2>買い物かご</h2>
+    <p>2点の商品が入っています。</p>
+  </div>
+
+  <div class="cartrow">
+    <span class="imgph sq t-a"><svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><circle cx="60" cy="76" r="26" fill="none" stroke="#9B2B33" stroke-width="3"/><path d="M50 40 L60 18 L70 40 L60 52 Z" fill="none" stroke="#9B2B33" stroke-width="3" stroke-linejoin="round"/></svg></span>
+    <span>
+      <span class="cn">エンゲージリング 0.3ct ハートシェイプ</span>
+      <span class="cm">ブライダル ／ 婚約　Pt900　0.30ct　サイズ 9号</span>
+      <span class="qty"><button>−</button><span>1</span><button>＋</button></span><br>
+      <button class="del">削除する</button>
+    </span>
+    <span class="cp">¥180,000</span>
+  </div>
+
+  <div class="cartrow">
+    <span class="imgph sq t-c"><svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><path d="M22 26 C34 74 86 74 98 26" fill="none" stroke="#9B2B33" stroke-width="3"/><circle cx="60" cy="80" r="12" fill="none" stroke="#9B2B33" stroke-width="3"/></svg></span>
+    <span>
+      <span class="cn">K10 ダイヤモンド 0.1ct 覆輪ネックレス</span>
+      <span class="cm">ファッションジュエリー　K10YG　0.10ct　チェーン40cm</span>
+      <span class="qty"><button>−</button><span>1</span><button>＋</button></span><br>
+      <button class="del">削除する</button>
+    </span>
+    <span class="cp">¥33,000</span>
+  </div>
+
+  <div class="sum">
+    <div class="r"><span>小計（2点）</span><span>¥213,000</span></div>
+    <div class="r"><span>送料</span><span>無料</span></div>
+    <div class="r"><span>ギフト包装</span><span>無料</span></div>
+    <div class="r total"><span>合計</span><span>¥213,000</span></div>
+    <div style="margin-top:16px"><button class="cta" style="width:100%">レジに進む</button></div>
+  </div>
+
+  <div style="margin-top:26px">
+    <button class="cta ghost" data-go="shop-top">買い物を続ける</button>
+    <button class="cta ghost" data-go="reserve">店舗で実物を見る</button>
+  </div>
+</section>
+
 </main>
 
 <script>
@@ -799,7 +933,9 @@ var PAGES = {
   'company':        {sect:'company', line:null,      sub:null,       crumb:'トップ ＞ <b>会社イメージ</b>'},
   'brands':         {sect:'brand',   line:null,      sub:null,       crumb:'トップ ＞ <b>ブランド</b>'},
   'shops':          {sect:'shops',   line:null,      sub:null,       crumb:'トップ ＞ <b>ショップ</b>'},
-  'reserve':        {sect:'shops',   line:null,      sub:null,       crumb:'ショップ ＞ <b>来店予約</b>'}
+  'reserve':        {sect:'shops',   line:null,      sub:null,       crumb:'ショップ ＞ <b>来店予約</b>'},
+  'maintenance':    {sect:'maint',   line:null,      sub:null,       crumb:'トップ ＞ <b>メンテナンス</b>'},
+  'cart':           {sect:null,      line:null,      sub:null,       crumb:'<b>買い物かご</b>'}
 };
 var hist = ['sitemap'];
 
