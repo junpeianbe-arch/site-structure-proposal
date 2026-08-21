@@ -263,6 +263,48 @@ h3.sec{font-size:16pt;letter-spacing:.05em;margin:34px 0 16px;font-weight:700}
 .flowrow .ft{font-size:14pt;font-weight:700;display:block;margin-bottom:2px}
 .flowrow .fd{font-size:12pt;color:var(--muted);display:block}
 
+/* ---------- マイページ ---------- */
+.loginbox{max-width:560px;border:1px solid var(--line);border-radius:var(--radius);padding:28px}
+.sso{display:block;width:100%;text-align:left;border:1px solid var(--line);border-radius:var(--radius);background:#fff;padding:14px 18px 14px 56px;font-size:14pt;margin-bottom:12px;cursor:pointer;position:relative;color:var(--ink)}
+.sso svg{position:absolute;left:20px;top:50%;transform:translateY(-50%);width:24px;height:24px}
+.sso:hover{border-color:var(--accent)}
+.sso .sn{font-size:11pt;color:var(--muted);display:block}
+.divider{text-align:center;color:var(--muted);font-size:12pt;margin:18px 0}
+.why{border-left:3px solid var(--accent);background:var(--accent-soft);padding:18px 22px;margin:0 0 26px}
+.why .wt{font-size:14pt;font-weight:700;color:var(--accent);margin:0 0 10px}
+.why ul{margin:0;padding-left:20px}
+.why li{font-size:13pt;margin-bottom:5px}
+
+.membercard{border:1px solid var(--accent);border-radius:6px;padding:24px;background:var(--accent-soft);display:grid;grid-template-columns:1fr 116px;gap:22px;align-items:center;max-width:660px}
+.membercard .mt{font-size:11pt;color:var(--accent);margin:0 0 8px;letter-spacing:.12em}
+.membercard .mn{font-size:19pt;font-weight:700;margin:0 0 4px}
+.membercard .mi{font-size:12pt;color:var(--muted);display:block}
+.qr{width:116px;height:116px;background:#fff;border:1px solid var(--line);border-radius:var(--radius);display:flex;align-items:center;justify-content:center}
+
+.mycard{border:1px solid var(--line);border-radius:var(--radius);padding:22px;display:grid;grid-template-columns:150px 1fr;gap:24px;margin-bottom:16px}
+.mycard .mh{font-size:16pt;font-weight:700;margin:0 0 4px}
+.mycard .ms{font-size:12pt;color:var(--muted);margin:0 0 14px}
+.mytbl{width:100%;border-collapse:collapse;font-size:12pt;margin-bottom:16px}
+.mytbl th{text-align:left;color:var(--muted);font-weight:400;padding:4px 16px 4px 0;white-space:nowrap;vertical-align:top;width:130px}
+.mytbl td{padding:4px 0;font-weight:700}
+.docs{display:flex;flex-wrap:wrap;gap:10px}
+.docbtn{border:1px solid var(--line);border-radius:var(--radius);background:#fff;padding:8px 16px 8px 40px;font-size:12pt;cursor:pointer;position:relative;color:var(--ink)}
+.docbtn svg{position:absolute;left:15px;top:50%;transform:translateY(-50%);width:17px;height:17px}
+.docbtn:hover{border-color:var(--accent);color:var(--accent)}
+
+.prog{display:grid;grid-template-columns:repeat(5,1fr);margin:22px 0 10px}
+.pstep{text-align:center;position:relative;padding-top:40px}
+.pstep::before{content:"";position:absolute;top:14px;left:0;right:0;height:2px;background:var(--line)}
+.pstep:first-child::before{left:50%}
+.pstep:last-child::before{right:50%}
+.pstep .dot{position:absolute;top:5px;left:50%;transform:translateX(-50%);width:20px;height:20px;border-radius:50%;background:#fff;border:2px solid var(--line);box-sizing:border-box}
+.pstep.done::before{background:var(--accent)}
+.pstep.done .dot{background:var(--accent);border-color:var(--accent)}
+.pstep.now .dot{border-color:var(--accent);box-shadow:0 0 0 5px var(--accent-soft)}
+.pstep .pl{font-size:12pt;color:var(--muted);display:block;padding:0 4px}
+.pstep.done .pl,.pstep.now .pl{color:var(--ink);font-weight:700}
+.depot{border:1px solid var(--line);border-radius:var(--radius);padding:22px}
+
 /* ---------- レスポンシブ ---------- */
 @media(max-width:1000px){
   .pgrid{grid-template-columns:repeat(2,1fr)}
@@ -283,6 +325,14 @@ h3.sec{font-size:16pt;letter-spacing:.05em;margin:34px 0 16px;font-weight:700}
   .cartrow{grid-template-columns:84px 1fr;gap:14px}
   .cartrow .cp{grid-column:2;text-align:left}
   .sum{margin-left:0;max-width:none}
+  .mycard{grid-template-columns:1fr}
+  .membercard{grid-template-columns:1fr;justify-items:start}
+  .prog{grid-template-columns:1fr}
+  .pstep{text-align:left;padding:0 0 16px 36px;min-height:40px}
+  .pstep::before{top:0;bottom:0;left:9px;width:2px;height:auto;right:auto}
+  .pstep:first-child::before{top:10px;left:9px}
+  .pstep:last-child::before{bottom:auto;height:10px}
+  .pstep .dot{top:0;left:0;transform:none}
   .tbl th,.tbl td{padding:10px 12px}
 }
 @media(max-width:560px){
@@ -303,6 +353,7 @@ h3.sec{font-size:16pt;letter-spacing:.05em;margin:34px 0 16px;font-weight:700}
     <button class="backbtn" id="back">← 戻る</button>
     <span class="crumb" id="crumb"></span>
     <button class="lang">JP / EN</button>
+    <button class="cartbtn" data-go="mypage" aria-label="マイページ" style="padding-left:38px"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="8" r="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>マイページ</button>
     <button class="cartbtn" data-go="cart" aria-label="買い物かご"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M2 3h3l2.6 11.2a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.5L21 7H6" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/><circle cx="10" cy="20" r="1.6" fill="currentColor"/><circle cx="18" cy="20" r="1.6" fill="currentColor"/></svg>かご<span class="n">2</span></button>
   </div>
   <nav class="gnav" id="gnav">
@@ -345,6 +396,8 @@ h3.sec{font-size:16pt;letter-spacing:.05em;margin:34px 0 16px;font-weight:700}
     <li class="lv3"><button class="lv3" data-go="reserve">来店予約</button></li>
     <li class="lv2"><button class="lv2" data-go="maintenance">メンテナンス</button></li>
     <li class="lv2"><button class="lv2" data-go="cart">買い物かご</button></li>
+    <li class="lv2"><button class="lv2" data-go="mypage">マイページ</button></li>
+    <li class="lv3"><button class="lv3" data-go="login">ログイン</button></li>
     <li><button data-go="sitemap">全体構成を見る</button></li>
   </ul>
 </nav>
@@ -374,8 +427,11 @@ h3.sec{font-size:16pt;letter-spacing:.05em;margin:34px 0 16px;font-weight:700}
       <li class="ind">店舗情報・お問い合わせ・来店予約</li>
       <li class="hd">メンテナンス</li>
       <li class="ind">サイズ変更・清掃・作り直し</li>
-      <li class="hd">買い物かご（共通機能）</li>
-      <li class="ind">全ページの右上に常設</li>
+      <li class="hd">マイページ</li>
+      <li class="ind">保証書・鑑定書の保管、仕様の記録</li>
+      <li class="ind">清掃無料の会員証、お預かり進捗</li>
+      <li class="hd">共通機能</li>
+      <li class="ind">買い物かご・マイページ（全ページ右上に常設）</li>
     </ul>
   </div>
   <h3 class="sec">3ラインの位置づけ</h3>
@@ -868,6 +924,7 @@ h3.sec{font-size:16pt;letter-spacing:.05em;margin:34px 0 16px;font-weight:700}
   <div style="margin-top:30px">
     <button class="cta" data-go="reserve">メンテナンスを相談する（来店予約）</button>
     <button class="cta ghost" data-go="shops">お問い合わせ先を見る</button>
+    <button class="cta ghost" data-go="mypage">お預かり状況を確認する</button>
   </div>
 </section>
 
@@ -915,6 +972,138 @@ h3.sec{font-size:16pt;letter-spacing:.05em;margin:34px 0 16px;font-weight:700}
   </div>
 </section>
 
+
+<!-- ========== ログイン ========== -->
+<section class="screen" id="login">
+  <div class="hero">
+    <p class="eyebrow">MY PAGE</p>
+    <h2>マイページ</h2>
+    <p>お求めいただいた品の記録をお預かりします。ご登録は無料です。</p>
+  </div>
+
+  <div class="why">
+    <p class="wt">ご登録いただくと</p>
+    <ul>
+      <li>保証書と鑑定書をデータでお預かりします。紙をなくされても再発行の必要がありません</li>
+      <li>ご購入時のリングサイズや仕様を記録します。「何号だったか」を思い出す必要がありません</li>
+      <li>刻印の内容を記録します。作り直しのときに必要になります</li>
+      <li>清掃・点検が無料になる会員証をお使いいただけます</li>
+      <li>お預かり中のお品の進み具合をご確認いただけます</li>
+    </ul>
+  </div>
+
+  <div class="loginbox">
+    <p style="font-size:14pt;font-weight:700;margin:0 0 16px">ログイン・新規登録</p>
+    <button class="sso" data-go="mypage">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21.6 12.2c0-.7-.06-1.4-.18-2.05H12v3.88h5.4a4.6 4.6 0 0 1-2 3.02v2.5h3.23c1.9-1.74 2.97-4.3 2.97-7.35z" fill="#4285F4"/><path d="M12 22c2.7 0 4.96-.9 6.62-2.43l-3.23-2.5c-.9.6-2.05.96-3.39.96-2.6 0-4.8-1.76-5.6-4.12H3.06v2.59A10 10 0 0 0 12 22z" fill="#34A853"/><path d="M6.4 13.9a6 6 0 0 1 0-3.82V7.5H3.06a10 10 0 0 0 0 9l3.34-2.6z" fill="#FBBC05"/><path d="M12 5.96c1.47 0 2.79.5 3.83 1.5l2.86-2.86C16.95 2.99 14.7 2 12 2A10 10 0 0 0 3.06 7.5L6.4 10.1c.8-2.36 3-4.14 5.6-4.14z" fill="#EA4335"/></svg>
+      Googleでつづける
+    </button>
+    <button class="sso" data-go="mypage">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="5" fill="#06C755"/><path d="M12 5.4c-4 0-7.2 2.6-7.2 5.8 0 2.9 2.5 5.3 5.9 5.7.2 0 .5.2.6.4.1.2 0 .5 0 .5l-.1.7c0 .2-.2.8.7.4s4.6-2.7 6.3-4.6c1.1-1.2 1.6-2.4 1.6-3.7 0-3.2-3.2-5.8-7.2-5.8z" fill="#fff"/><path d="M9 9.3v3.4M9 12.7h1.8M13 9.3v3.4M15.1 12.7V9.3l2.3 3.4V9.3" fill="none" stroke="#06C755" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      LINEでつづける
+      <span class="sn">お預かり完了などのご連絡をLINEでお送りします</span>
+    </button>
+    <p class="divider">または</p>
+    <button class="sso" data-go="mypage" style="padding-left:56px">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="5" width="20" height="14" rx="2" fill="none" stroke="#6E6464" stroke-width="2"/><path d="M3 6.5 12 13l9-6.5" fill="none" stroke="#6E6464" stroke-width="2" stroke-linejoin="round"/></svg>
+      メールアドレスで登録する
+    </button>
+    <p style="font-size:11pt;color:var(--muted);margin:18px 0 0">ご登録がなくても、注文番号とお電話番号でお預かり状況をご確認いただけます。</p>
+  </div>
+</section>
+
+<!-- ========== マイページ ========== -->
+<section class="screen" id="mypage">
+  <div class="hero">
+    <p class="eyebrow">MY PAGE</p>
+    <h2>◯◯ 様のページ</h2>
+    <p>お求めいただいた品の記録と、お預かり中のお品の状況をご確認いただけます。</p>
+  </div>
+
+  <h3 class="sec">会員証</h3>
+  <div class="membercard">
+    <div>
+      <p class="mt">CLEANING &amp; INSPECTION</p>
+      <p class="mn">清掃・点検 無料</p>
+      <span class="mi">当店でお求めの品は、回数の制限なく無料で承ります。<br>ご来店時にこの画面をご提示ください。</span>
+      <span class="mi" style="margin-top:10px">会員番号　1985-0417-2231　／　ご登録 2019年4月</span>
+    </div>
+    <div class="qr">
+      <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" style="width:84px;height:84px">
+        <rect x="4" y="4" width="16" height="16" fill="none" stroke="#241E1E" stroke-width="3"/><rect x="9" y="9" width="6" height="6" fill="#241E1E"/>
+        <rect x="40" y="4" width="16" height="16" fill="none" stroke="#241E1E" stroke-width="3"/><rect x="45" y="9" width="6" height="6" fill="#241E1E"/>
+        <rect x="4" y="40" width="16" height="16" fill="none" stroke="#241E1E" stroke-width="3"/><rect x="9" y="45" width="6" height="6" fill="#241E1E"/>
+        <rect x="26" y="6" width="4" height="4" fill="#241E1E"/><rect x="26" y="14" width="4" height="4" fill="#241E1E"/><rect x="32" y="10" width="4" height="4" fill="#241E1E"/>
+        <rect x="26" y="26" width="4" height="4" fill="#241E1E"/><rect x="34" y="26" width="4" height="4" fill="#241E1E"/><rect x="42" y="26" width="4" height="4" fill="#241E1E"/><rect x="50" y="26" width="4" height="4" fill="#241E1E"/>
+        <rect x="26" y="34" width="4" height="4" fill="#241E1E"/><rect x="42" y="34" width="4" height="4" fill="#241E1E"/>
+        <rect x="26" y="42" width="4" height="4" fill="#241E1E"/><rect x="34" y="42" width="4" height="4" fill="#241E1E"/><rect x="50" y="42" width="4" height="4" fill="#241E1E"/>
+        <rect x="34" y="50" width="4" height="4" fill="#241E1E"/><rect x="42" y="50" width="4" height="4" fill="#241E1E"/>
+        <rect x="6" y="26" width="4" height="4" fill="#241E1E"/><rect x="14" y="30" width="4" height="4" fill="#241E1E"/>
+      </svg>
+    </div>
+  </div>
+
+  <h3 class="sec">お預かり中のお品</h3>
+  <div class="depot">
+    <p style="font-size:16pt;font-weight:700;margin:0 0 4px">エンゲージリング 0.3ct ハートシェイプ</p>
+    <p style="font-size:12pt;color:var(--muted);margin:0">サイズ変更（9号 → 11号）　お預かり日 2026年8月3日　お渡し予定 2026年8月26日</p>
+    <div class="prog">
+      <div class="pstep done"><span class="dot"></span><span class="pl">ご相談</span></div>
+      <div class="pstep done"><span class="dot"></span><span class="pl">お見積り</span></div>
+      <div class="pstep now"><span class="dot"></span><span class="pl">工房で作業中</span></div>
+      <div class="pstep"><span class="dot"></span><span class="pl">仕上げ・検品</span></div>
+      <div class="pstep"><span class="dot"></span><span class="pl">お渡し</span></div>
+    </div>
+    <p style="font-size:12pt;color:var(--muted);margin:14px 0 0">仕上がりましたらLINEでご連絡します。ご不明な点はお問い合わせください。</p>
+  </div>
+
+  <h3 class="sec">お求めいただいた品</h3>
+
+  <div class="mycard">
+    <div class="imgph sq t-a"><svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><circle cx="60" cy="76" r="26" fill="none" stroke="#9B2B33" stroke-width="3"/><path d="M50 40 L60 18 L70 40 L60 52 Z" fill="none" stroke="#9B2B33" stroke-width="3" stroke-linejoin="round"/></svg></div>
+    <div>
+      <p class="mh">エンゲージリング 0.3ct ハートシェイプ</p>
+      <p class="ms">ブライダル ／ 婚約　　ご購入 2019年4月17日</p>
+      <table class="mytbl">
+        <tr><th>リングサイズ</th><td>9号（2026年8月に11号へ変更中）</td></tr>
+        <tr><th>刻印</th><td>内側　2019.4.17　K to Y</td></tr>
+        <tr><th>素材</th><td>プラチナ900</td></tr>
+        <tr><th>石</th><td>ダイヤモンド 0.30ct　ハートシェイプ</td></tr>
+        <tr><th>品番</th><td>H125-050180</td></tr>
+      </table>
+      <div class="docs">
+        <button class="docbtn"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M14 2v6h6" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>保証書を見る</button>
+        <button class="docbtn"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M14 2v6h6" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>鑑定書を見る</button>
+        <button class="docbtn" data-go="maintenance"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 4a8 8 0 1 1-7 4.1" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M4 3.5 4.7 8.3 9.5 7.6" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></svg>メンテナンスを申し込む</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="mycard">
+    <div class="imgph sq t-b"><svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><ellipse cx="60" cy="60" rx="28" ry="32" fill="none" stroke="#6B1C24" stroke-width="3"/><ellipse cx="60" cy="60" rx="20" ry="24" fill="none" stroke="#6B1C24" stroke-width="1.5"/></svg></div>
+    <div>
+      <p class="mh">マリッジリング ストレート Pt900（ペア）</p>
+      <p class="ms">ブライダル ／ 結婚　　ご購入 2019年8月2日</p>
+      <table class="mytbl">
+        <tr><th>リングサイズ</th><td>レディース 9号 ／ メンズ 17号</td></tr>
+        <tr><th>刻印</th><td>内側　2019.8.2　（両方）</td></tr>
+        <tr><th>素材</th><td>プラチナ900</td></tr>
+        <tr><th>石</th><td>なし</td></tr>
+        <tr><th>品番</th><td>M310-069800</td></tr>
+      </table>
+      <div class="docs">
+        <button class="docbtn"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M14 2v6h6" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>保証書を見る</button>
+        <button class="docbtn" data-go="maintenance"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 4a8 8 0 1 1-7 4.1" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M4 3.5 4.7 8.3 9.5 7.6" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></svg>メンテナンスを申し込む</button>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:26px">
+    <button class="cta ghost" data-go="reserve">来店を予約する</button>
+    <button class="cta ghost" data-go="login">ログイン画面を見る</button>
+  </div>
+</section>
+
 </main>
 
 <script>
@@ -935,7 +1124,9 @@ var PAGES = {
   'shops':          {sect:'shops',   line:null,      sub:null,       crumb:'トップ ＞ <b>ショップ</b>'},
   'reserve':        {sect:'shops',   line:null,      sub:null,       crumb:'ショップ ＞ <b>来店予約</b>'},
   'maintenance':    {sect:'maint',   line:null,      sub:null,       crumb:'トップ ＞ <b>メンテナンス</b>'},
-  'cart':           {sect:null,      line:null,      sub:null,       crumb:'<b>買い物かご</b>'}
+  'cart':           {sect:null,      line:null,      sub:null,       crumb:'<b>買い物かご</b>'},
+  'login':          {sect:null,      line:null,      sub:null,       crumb:'<b>マイページ（ログイン）</b>'},
+  'mypage':         {sect:null,      line:null,      sub:null,       crumb:'<b>マイページ</b>'}
 };
 var hist = ['sitemap'];
 
